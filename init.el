@@ -2,6 +2,7 @@
 (require 'cl)
 (require 'package)
 
+;; Для автоматической установки пакетов
 (defvar cfg-var:packages '(
 			   cyberpunk-theme
 			   markdown-mode
