@@ -1,4 +1,43 @@
 * Конфигурация Emacs.
+
+V 0.7 - текущая версия.
+
+** TODO
+
+Осталось доделать описание, выбрать между web-mode и mmm-mode.
+
+V 0.8 - js + разное
+
+- [] emmet
+- [] pug
+- [] js
+- [] json
+- [] jQuery
+- [] jslint
+- [] indium?
+- [] jsx?
+- [] tern?
+- [] css
+- [] sass
+- [] mpm
+- [] gulp
+- [] sql
+- [] restclient?
+
+v 0.9 - org-mode + общение
+
+- [] orgmode настройки экспорта
+- [] org-brain
+- [] org-html-themes
+- [] org-super-agenda
+- [] org-noter?
+- [] org-download?
+- [] org-cliplink?
+- [] markdown-mode+?
+- [] markdown-toc?
+- [] wanderlust
+- [] emacs-slack
+
 Данная конфигурация Emacs создана с целью адаптировать его для WEB разработки в самом минималистичном дизайне.
 
 ** Используемые пакеты
