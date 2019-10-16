@@ -5,8 +5,7 @@
 В данном разделе дано описание используемых пакетов.
 
 *** Шрифт Hack
-Hack - шрифт моноширинный c однозначным начертанием символов.
-Необходимо скачать и установить в систему.
+Hack - шрифт моноширинный c однозначным начертанием символов. Необходимо скачать и установить в систему.
 
 Ссылка на проект:
 
@@ -20,4 +19,108 @@ https://github.com/source-foundry/Hack
 
 https://github.com/n3mo/cyberpunk-theme.el
 
-*** 
+*** multiple-cursors
+
+Пакет позволяющий включить несколько курсоров для одновременного ввода в нескольких местах.
+
+Ссылка на проект:
+
+https://github.com/magnars/multiple-cursors.el
+
+*** yasnippet
+
+Пакет для работы со снипетами (заготовками кода).
+
+Ссылка на проект:
+
+http://joaotavora.github.io/yasnippet/snippet-organization.html
+
+*** company
+
+Автодополнение при написании кода.
+
+Ссылка на проект:
+
+http://company-mode.github.io
+
+*** magit
+
+Оболочка для управления git в emacs.
+
+Ссылка на проект:
+
+https://magit.vc
+
+*** indent-guide
+
+Отображает уровень вложенности строк относительно текущей табуляции строки.
+
+Ссылка на проект:
+
+https://github.com/zk-phi/indent-guide
+
+*** markdown-mode
+
+Языковой пакет для markdown.
+
+Ссылка на проект:
+
+https://github.com/jrblevin/markdown-mode
+
+*** web-mode
+
+Мульти языковой пакет.
+
+Ссылка на проект:
+
+http://web-mode.org
+
+*** mmm-mode
+
+Мульти языковой пакет.
+
+Ссылка на проект:
+
+https://github.com/purcell/mmm-mode
+
+*** web-beautify
+
+Позволяет одной командой упорядочить структуру кода. Требует дополнительную установку в систему. 
+
+npm -g install js-beautify
+
+Ссылка на проект:
+
+https://github.com/yasuyk/web-beautify
+
+*** zoom
+
+Автоматически увеличивает размер активного буфера.
+
+Ссылка на проект:
+
+https://github.com/cyrus-and/zoom
+
+*** auctex
+
+Мульти языковой пакет для Tex подобной разметки (LaTex, XeLatex и т.д).
+
+Ссылка на проект:
+
+https://github.com/jwiegley/auctex
+
+*** latex-preview-pane
+
+Предпросмотр latex документов в pdf формате.
+
+Ссылка на проект:
+
+https://www.emacswiki.org/emacs/LaTeXPreviewPane
+
+*** htmlize
+
+Оформляет код в HTML для отображения на странице в виде блока.
+
+Ссылка на проект:
+
+https://github.com/hniksic/emacs-htmlize
