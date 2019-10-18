@@ -5,7 +5,7 @@
 ;; Для автоматической установки пакетов
 (defvar cfg-var:packages '(
 			   cyberpunk-theme
-			   markdown-mode
+			   projectile
 			   multiple-cursors
 			   yasnippet
 			   company
@@ -82,6 +82,9 @@
 (setq use-dialog-box nil)
 ;; Сокращенные ответы в минибуфере
 (defalias 'yes-or-no-p 'y-or-n-p)
+
+;; Скрыть строку состояния
+(setq-default mode-line-format nil)
 
 ;; Сохранить историю минибуферов
 (savehist-mode 1)
@@ -177,11 +180,14 @@
 ;; Пакеты
 ;;
 
-;; org-mode
-(setq org-src-fontify-natively t)
+;; https://github.com/bbatsov/projectile
+(projectile-mode +1)
+(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
-;; Скрыть строку состояния
-(setq-default mode-line-format nil)
+;; org-mode
+;; Подсветка блока с кодом.
+(setq org-src-fontify-natively t)
 
 ;; https://github.com/magnars/multiple-cursors.el
 (require 'multiple-cursors)
@@ -196,6 +202,7 @@
 
 ;; https://company-mode.github.io
 (require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
 
 ;; https://github.com/zk-phi/indent-guide
 (require 'indent-guide)

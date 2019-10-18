@@ -4,10 +4,12 @@ V 0.7 - текущая версия.
 
 ** TODO
 
-Осталось доделать описание, выбрать между web-mode и mmm-mode.
+В текущей версии осталось доделать описание, выбрать между web-mode и mmm-mode.
 
 V 0.8 - js + разное
 
+
+- [ ] agenda
 - [ ] emmet
 - [ ] pug
 - [ ] js
@@ -36,7 +38,7 @@ v 0.9 - org-mode + общение
 - [ ] markdown-mode+?
 - [ ] markdown-toc?
 - [ ] wanderlust
-- [ ] emacs-slack
+- [ ] emacs-slack?
 
 Данная конфигурация Emacs создана с целью адаптировать его для WEB разработки в самом минималистичном дизайне.
 
@@ -163,3 +165,11 @@ https://www.emacswiki.org/emacs/LaTeXPreviewPane
 Ссылка на проект:
 
 https://github.com/hniksic/emacs-htmlize
+
+*** projectile
+
+Управление проектами.
+
+Ссылка на проект:
+
+https://github.com/bbatsov/projectile
