@@ -15,6 +15,7 @@
 			   emmet-mode
 			   web-mode
 			   mmm-mode
+			   pug-mode
 			   web-beautify
 			   zoom
 			   auctex
@@ -213,6 +214,9 @@
 ;; https://github.com/smihica/emmet-mode
 (require 'emmet-mode)
 
+;; https://github.com/hlissner/emacs-pug-mode
+(require 'pug-mode)
+
 ;;
 ;; Режимы
 ;;
@@ -242,9 +246,3 @@
    (quote
     (htmlize latex-preview-pane auctex zoom yasnippet web-mode web-beautify powerline multiple-cursors mmm-mode markdown-mode magit indent-guide cyberpunk-theme company)))
  '(zoom-size (quote (0.618 . 0.618))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
