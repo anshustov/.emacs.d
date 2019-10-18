@@ -10,7 +10,6 @@ V 0.8 - js + разное
 
 
 - [ ] agenda
-- [ ] emmet
 - [ ] pug
 - [ ] js
 - [ ] json
@@ -173,3 +172,13 @@ https://github.com/hniksic/emacs-htmlize
 Ссылка на проект:
 
 https://github.com/bbatsov/projectile
+
+*** emmet-mode
+
+Добовляем функционал emmet.
+
+Ссылка на проект:
+
+https://github.com/smihica/emmet-mode
+
+
