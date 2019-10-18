@@ -10,8 +10,6 @@ V 0.8 - js + разное
 
 
 - [ ] agenda
-- [ ] pug
-- [ ] js
 - [ ] json
 - [ ] jQuery
 - [ ] jslint
@@ -181,7 +179,6 @@ https://github.com/bbatsov/projectile
 
 https://github.com/smihica/emmet-mode
 
-
 *** pug-mode
 
 Режим pug
@@ -189,3 +186,11 @@ https://github.com/smihica/emmet-mode
 Ссылка на проект:
 
 https://github.com/hlissner/emacs-pug-mode
+
+*** js2-mode
+
+js2-mode
+
+Ссылка на проект:
+
+https://github.com/mooz/js2-mode
