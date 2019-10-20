@@ -94,6 +94,8 @@
 (savehist-mode 1)
 ;; Сохранить позицию курсора
 (save-place-mode 1)
+;; Сохранить последнюю сессию
+(desktop-save-mode 1)
 
 ;; Отключаем подсветку текущей строки
 (global-hl-line-mode -1)
