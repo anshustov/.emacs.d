@@ -17,6 +17,7 @@
 			   mmm-mode
 			   pug-mode
 			   js2-mode
+			   json-mode
 			   web-beautify
 			   zoom
 			   auctex
@@ -192,6 +193,10 @@
 ;; org-mode
 ;; Подсветка блока с кодом.
 (setq org-src-fontify-natively t)
+;; agenda
+(setq org-agenda-files '("~/Drive/dev/doc/org/"))
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
 
 ;; https://github.com/magnars/multiple-cursors.el
 (require 'multiple-cursors)
