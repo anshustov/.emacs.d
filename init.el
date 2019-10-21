@@ -21,7 +21,6 @@
 			   web-beautify
 			   zoom
 			   auctex
-			   latex-preview-pane
 			   htmlize
 			   ))
 
@@ -35,8 +34,8 @@
                 (package-install p)))))
 
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)3
+;;(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
 
@@ -240,6 +239,8 @@
 ;; https://github.com/cyrus-and/zoom
 (zoom-mode t)
 (global-set-key (kbd "C-x z") 'zoom)
+(custom-set-variables
+ '(zoom-size '(0.618 . 0.618)))
 
 ;;eshell
 (add-hook 'shell-mode-hook
@@ -248,19 +249,3 @@
 	    (define-key shell-mode-map (kbd "<M-down>") 'comint-next-input)
 	    )
 	  )
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (htmlize latex-preview-pane auctex zoom yasnippet web-mode web-beautify powerline multiple-cursors mmm-mode markdown-mode magit indent-guide cyberpunk-theme company)))
- '(zoom-size (quote (0.618 . 0.618))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

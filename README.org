@@ -139,14 +139,6 @@ https://github.com/cyrus-and/zoom
 
 https://github.com/jwiegley/auctex
 
-*** latex-preview-pane
-
-Предпросмотр latex документов в pdf формате.
-
-Ссылка на проект:
-
-https://www.emacswiki.org/emacs/LaTeXPreviewPane
-
 *** htmlize
 
 Оформляет код в HTML для отображения на странице в виде блока.
