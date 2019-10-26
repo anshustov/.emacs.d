@@ -1,3 +1,5 @@
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+
 * Конфигурация Emacs.
 
 V 0.8 - текущая версия.
@@ -8,9 +10,6 @@ V 0.8 - текущая версия.
 
 v 0.9 - org-mode + общение
 
-- [ ] orgmode настройки экспорта
-- [ ] org-brain
-- [ ] org-html-themes
 - [ ] org-super-agenda
 - [ ] org-noter?
 - [ ] org-download?
@@ -22,6 +21,7 @@ v 0.9 - org-mode + общение
 
 v 1.0
 
+- [ ] orgmode настройки экспорта
 - [ ] use-package
 - [ ] разбить конфигурацию не несколько файлов
 - [ ] indium?
@@ -31,7 +31,7 @@ v 1.0
 Данная конфигурация Emacs создана с целью адаптировать его для WEB разработки в самом минималистичном дизайне. 
 Целью создания была адаптация под маленькие экраны ноутбуков. Отключены все визуальные элементы emacs.
 
-** Используемые пакеты
+* Используемые пакеты
 В данном разделе дано описание используемых пакетов.
 
 *** Шрифт Hack
@@ -178,3 +178,19 @@ js2-mode
 Ссылка на проект:
 
 https://github.com/mooz/js2-mode
+
+*** org-to-pdf
+
+org-to-pdf основан на:
+
+Ссылка на проект:
+
+http://nickguthrie.com/archives/276
+
+*** org-brain
+
+Для создания концептуальных схем в org-mode
+
+Ссылка на проект:
+
+https://github.com/Kungsgeten/org-brain

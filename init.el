@@ -22,6 +22,7 @@
 			   zoom
 			   auctex
 			   htmlize
+			   org-brain
 			   ))
 
 (defun cfg:install-packages ()
@@ -34,12 +35,18 @@
                 (package-install p)))))
 
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
-;;(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+;;(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
 
 (cfg:install-packages)
+
+;;
+;; Расширения
+;;
+
+(load-file "~/.emacs.d/org-to-pdf.el")
 
 ;;
 ;; ВНЕШНИЙ ВИД
@@ -136,7 +143,7 @@
 ;; Отключить курсор в неактивных окнах
 (setq cursor-in-non-selected-windows nil)
 ;; Табуляция из четырех символов
-(setq default-tab-width 4)
+(setq default-tab-widthq 4)
 
 ;; Тип курсора
 (setq-default cursor-type 'hollow)
@@ -239,8 +246,18 @@
 ;; https://github.com/cyrus-and/zoom
 (zoom-mode t)
 (global-set-key (kbd "C-x z") 'zoom)
+(defun size-callback ()
+  (cond ((> (frame-pixel-width) 1280) '(90 . 0.75))
+        (t                            '(0.5 . 0.5))))
 (custom-set-variables
- '(zoom-size '(0.618 . 0.618)))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (doom-modeline kaolin-themes alect-themes zoom yasnippet web-mode web-beautify pug-mode projectile multiple-cursors mmm-mode markdown-mode magit json-mode js2-mode indent-guide htmlize emmet-mode cyberpunk-theme company auctex)))
+ '(zoom-size (quote size-callback)))
 
 ;;eshell
 (add-hook 'shell-mode-hook
@@ -249,3 +266,10 @@
 	    (define-key shell-mode-map (kbd "<M-down>") 'comint-next-input)
 	    )
 	  )
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
