@@ -2,31 +2,29 @@
 
 * Конфигурация Emacs.
 
-V 0.8 - текущая версия.
+V 0.9 - текущая версия.
 
-** TODO
+* TODO
 
 В текущей версии осталось доделать описание, выбрать между web-mode и mmm-mode.
-
-v 0.9 - org-mode + общение
-
-- [ ] org-super-agenda
-- [ ] org-noter?
-- [ ] org-download?
-- [ ] org-cliplink?
-- [ ] markdown-mode+?
-- [ ] markdown-toc?
-- [ ] wanderlust
-- [ ] helm
 
 v 1.0
 
 - [ ] orgmode настройки экспорта
 - [ ] use-package
 - [ ] разбить конфигурацию не несколько файлов
+
+Интересные пакеты:
+- [ ] Mu4e
 - [ ] indium?
 - [ ] tern?
 - [ ] restclient?
+- [ ] org-super-agenda
+- [ ] org-noter?
+- [ ] org-download?
+- [ ] org-cliplink?
+- [ ] markdown-mode+?
+- [ ] markdown-toc?
 
 Данная конфигурация Emacs создана с целью адаптировать его для WEB разработки в самом минималистичном дизайне. 
 Целью создания была адаптация под маленькие экраны ноутбуков. Отключены все визуальные элементы emacs.

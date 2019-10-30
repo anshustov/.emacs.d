@@ -23,6 +23,9 @@
 			   auctex
 			   htmlize
 			   org-brain
+			   ivy
+			   swiper
+			   counsel
 			   ))
 
 (defun cfg:install-packages ()
@@ -259,13 +262,32 @@
     (doom-modeline kaolin-themes alect-themes zoom yasnippet web-mode web-beautify pug-mode projectile multiple-cursors mmm-mode markdown-mode magit json-mode js2-mode indent-guide htmlize emmet-mode cyberpunk-theme company auctex)))
  '(zoom-size (quote size-callback)))
 
-;;eshell
+;; eshell
 (add-hook 'shell-mode-hook
 	  (lambda ()
 	    (define-key shell-mode-map (kbd "<M-up>") 'comint-previous-input)
 	    (define-key shell-mode-map (kbd "<M-down>") 'comint-next-input)
 	    )
 	  )
+
+;;
+;; Тест
+;;
+
+;; http://www.djcbsoftware.nl/code/mu/
+;; brew install mu
+;; sudo mount -uw /
+;; sudo ln -s /Applications/Emacs.app/Contents/MacOS/Emacs /usr/bin/emacs
+;; EMACS=$(which emacs)
+
+;;(add-to-list 'load-path "/usr/local/bin/mu")
+;;(require 'mu4e)
+
+;; ivy
+
+(ivy-mode 1)
+(global-set-key "\C-s" 'swiper)
+
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
