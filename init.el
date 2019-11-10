@@ -49,7 +49,7 @@
 ;; Расширения
 ;;
 
-(load-file "~/.emacs.d/org-to-pdf.el")
+;;(load-file "~/.emacs.d/org-to-pdf.el")
 
 ;;
 ;; ВНЕШНИЙ ВИД
@@ -259,7 +259,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (doom-modeline kaolin-themes alect-themes zoom yasnippet web-mode web-beautify pug-mode projectile multiple-cursors mmm-mode markdown-mode magit json-mode js2-mode indent-guide htmlize emmet-mode cyberpunk-theme company auctex)))
+    (use-package doom-modeline kaolin-themes alect-themes zoom yasnippet web-mode web-beautify pug-mode projectile multiple-cursors mmm-mode markdown-mode magit json-mode js2-mode indent-guide htmlize emmet-mode cyberpunk-theme company auctex)))
  '(zoom-size (quote size-callback)))
 
 ;; eshell
