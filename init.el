@@ -1,49 +1,22 @@
-;; Автоматическая установка пакетов
-(require 'cl)
+;; v 1.0
 (require 'package)
-
-;; Для автоматической установки пакетов
-(defvar cfg-var:packages '(
-			   cyberpunk-theme
-			   projectile
-			   multiple-cursors
-			   yasnippet
-			   company
-			   magit
-			   indent-guide
-			   markdown-mode
-			   emmet-mode
-			   web-mode
-			   mmm-mode
-			   pug-mode
-			   js2-mode
-			   json-mode
-			   web-beautify
-			   zoom
-			   auctex
-			   htmlize
-			   org-brain
-			   ivy
-			   swiper
-			   counsel
-			   ))
-
-(defun cfg:install-packages ()
-    (let ((pkgs (remove-if #'package-installed-p cfg-var:packages)))
-        (when pkgs
-            (message "%s" "Emacs refresh packages database...")
-            (package-refresh-contents)
-            (message "%s" " done.")
-            (dolist (p cfg-var:packages)
-                (package-install p)))))
 
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 ;;(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
-(package-initialize)
 
-(cfg:install-packages)
+(setq package-enable-at-startup nil)
+(package-initialize nil)
+
+;; Установка use-package по необходимости
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+;; Автоустановка и автообновление пакетов
+(require 'use-package)
+(setq use-package-always-ensure t)
 
 ;;
 ;; Расширения
@@ -56,7 +29,18 @@
 ;;
 
 ;; Тема
-(load-theme 'cyberpunk t)
+
+(use-package cyberpunk-theme
+  :if (window-system)
+  :ensure t
+  :init
+  (progn
+    (load-theme 'cyberpunk t)
+    ;; Убрать границу вокруг строки состояния активного окна
+    (set-face-attribute `mode-line nil :box nil)
+    ;; Убрать границу вокруг строки состояния неактивного окна
+    (set-face-attribute `mode-line-inactive nil :box nil)
+    ))
 
 ;; Шрифт
 (set-frame-font "Hack 12" nil t)
@@ -71,6 +55,7 @@
 (setq inhibit-splash-screen  t)
 ;; Отключить приветсвенные сообщения
 (setq ingibit-startup-message t)
+
 ;; Отключить подсказку в пустом окне
 (setq initial-scratch-message "")
 ;; Отключить сообщение в минибуфере
@@ -97,7 +82,7 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; Скрыть строку состояния
-(setq-default mode-line-format nil)
+;;(setq-default mode-line-format nil)
 
 ;; Сохранить историю минибуферов
 (savehist-mode 1)
@@ -195,72 +180,22 @@
 ;; Пакеты
 ;;
 
-;; https://github.com/bbatsov/projectile
-(require 'projectile)
-(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-(projectile-mode +1)
-
 ;; org-mode
+
+(use-package org
+  :ensure t
+  :mode ("\\.org\\'" . org-mode)
+  :bind (("C-c a" . org-agenda))
+  :config
+  (progn
+    (setq org-directory "~/org")
+    (setq org-agenda-files
+          (mapcar (lambda (path) (concat org-directory path))
+                  '("~/Drive/dev/doc/org")))
 ;; Подсветка блока с кодом.
-(setq org-src-fontify-natively t)
-;; agenda
-(setq org-agenda-files '("~/Drive/dev/doc/org/"))
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-
-;; https://github.com/magnars/multiple-cursors.el
-(require 'multiple-cursors)
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-
-;; https://github.com/joaotavora/yasnippet
-(require 'yasnippet)
-(yas-reload-all)
-
-;; https://company-mode.github.io
-(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
-
-;; https://github.com/zk-phi/indent-guide
-(require 'indent-guide)
-(indent-guide-global-mode)
-
-;; https://github.com/smihica/emmet-mode
-(require 'emmet-mode)
-
-;; https://github.com/hlissner/emacs-pug-mode
-(require 'pug-mode)
-
-;; https://github.com/mooz/js2-mode
-(require 'js2-mode)
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-
-;;
-;; Режимы
-;;
-
-;; https://github.com/yasuyk/web-beautify
-;; npm -g install js-beautify
-(require 'web-beautify)
-
-;; https://github.com/cyrus-and/zoom
-(zoom-mode t)
-(global-set-key (kbd "C-x z") 'zoom)
-(defun size-callback ()
-  (cond ((> (frame-pixel-width) 1280) '(90 . 0.75))
-        (t                            '(0.5 . 0.5))))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (use-package doom-modeline kaolin-themes alect-themes zoom yasnippet web-mode web-beautify pug-mode projectile multiple-cursors mmm-mode markdown-mode magit json-mode js2-mode indent-guide htmlize emmet-mode cyberpunk-theme company auctex)))
- '(zoom-size (quote size-callback)))
+    (setq org-src-fontify-natively t)
+    )
+  )
 
 ;; eshell
 (add-hook 'shell-mode-hook
@@ -269,6 +204,102 @@
 	    (define-key shell-mode-map (kbd "<M-down>") 'comint-next-input)
 	    )
 	  )
+
+;; https://github.com/bbatsov/projectile
+(use-package projectile
+  :ensure t
+  :config
+  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (projectile-mode +1))
+
+;; https://github.com/magnars/multiple-cursors.el
+
+(use-package multiple-cursors
+  :bind (:map modi-mode-map
+         ("C-S-c C-S-c" . mc/edit-lines)
+         ("C->" . mc/mark-next-like-this)
+         ("C-<" . mc/mark-previous-like-this)
+         ("C-c C-<" . mc/mark-all-like-this)
+         ("C-S-<mouse-1>" . mc/add-cursor-on-click))
+  :bind (:map region-bindings-mode-map
+         ("a" . mc/mark-all-like-this)
+         ("p" . mc/mark-previous-like-this)
+         ("n" . mc/mark-next-like-this)
+         ("P" . mc/unmark-previous-like-this)
+         ("N" . mc/unmark-next-like-this)
+         ("[" . mc/cycle-backward)
+         ("]" . mc/cycle-forward)
+         ("m" . mc/mark-more-like-this-extended)
+         ("h" . mc-hide-unmatched-lines-mode)
+         ("\\" . mc/vertical-align-with-space)
+         ("#" . mc/insert-numbers) ; use num prefix to set the starting number
+         ("^" . mc/edit-beginnings-of-lines)
+         ("$" . mc/edit-ends-of-lines))
+  :init)
+
+;; https://github.com/joaotavora/yasnippet
+(use-package yasnippet
+  :ensure    t)
+
+;; https://company-mode.github.io
+(use-package company
+  :ensure t
+  :diminish company-mode
+  :config
+  (add-hook 'after-init-hook #'global-company-mode))
+
+;; https://github.com/zk-phi/indent-guide
+(use-package
+  indent-guide
+  :config (indent-guide-global-mode 1))
+
+;; markdown-mode
+(use-package markdown-mode
+  :ensure    t)
+
+;; https://github.com/smihica/emmet-mode
+(use-package emmet-mode
+  :ensure    t)
+
+;; https://github.com/hlissner/emacs-pug-mode
+(use-package pug-mode
+  :ensure    t)
+
+;; php-mode
+(use-package php-mode
+  :ensure    t
+  :config
+  (add-hook 'php-mode-hook #'php-enable-psr2-coding-style))
+
+;; https://github.com/mooz/js2-mode
+(use-package js2-mode
+  :ensure    t
+  :config
+  (add-hook 'js-mode-hook #'js2-minor-mode))
+
+;; web-mode
+
+(use-package web-mode
+  :ensure    t
+  :config
+  (progn
+    (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+    (add-to-list 'web-mode-engines-alist '("php"  . "\\.php\\'"))))
+
+;; https://github.com/cyrus-and/zoom
+(use-package zoom
+  :config
+  (setq zoom-size '(0.618 . 0.618))
+  (zoom-mode t))
+
+;; https://magit.vc
+(use-package magit
+  :ensure t)
+
+;; https://www.gnu.org/software/auctex/
+(use-package tex
+  :ensure auctex)
 
 ;;
 ;; Тест
@@ -285,10 +316,17 @@
 
 ;; ivy
 
-(ivy-mode 1)
-(global-set-key "\C-s" 'swiper)
+;;(ivy-mode 1)
+;;(global-set-key "\C-s" 'swiper)
 
-
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (auctex magit zoom web-mode js2-mode php-mode pug-mode emmet-mode markdown-mode indent-guide company yasnippet multiple-cursors projectile cyberpunk-theme use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
