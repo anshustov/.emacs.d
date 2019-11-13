@@ -1,4 +1,3 @@
-;; v 1.0
 (require 'package)
 
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
@@ -30,17 +29,21 @@
 
 ;; Тема
 
-(use-package cyberpunk-theme
+(use-package doom-themes
   :if (window-system)
   :ensure t
   :init
   (progn
-    (load-theme 'cyberpunk t)
+    (load-theme 'doom-molokai t)
     ;; Убрать границу вокруг строки состояния активного окна
     (set-face-attribute `mode-line nil :box nil)
     ;; Убрать границу вокруг строки состояния неактивного окна
     (set-face-attribute `mode-line-inactive nil :box nil)
     ))
+
+(use-package doom-modeline
+      :ensure t
+      :hook (after-init . doom-modeline-mode))
 
 ;; Шрифт
 (set-frame-font "Hack 12" nil t)
@@ -260,8 +263,7 @@
   (global-company-mode t))
 
 ;; https://github.com/zk-phi/indent-guide
-(use-package
-  indent-guide
+(use-package indent-guide
   :config (indent-guide-global-mode 1))
 
 ;; markdown-mode
@@ -271,7 +273,19 @@
 
 ;; https://github.com/smihica/emmet-mode
 (use-package emmet-mode
-  :ensure    t)
+  :diminish emmet-mode
+  :init (require 'emmet-mode)
+  :config (progn
+            (add-hook 'html-mode-hook 'emmet-mode)
+            (add-hook 'sgml-mode-hook 'emmet-mode)
+            (add-hook 'css-mode-hook 'emmet-mode)
+            (add-hook 'web-mode-hook 'emmet-mode)))
+
+;; https://github.com/cyrus-and/zoom
+(use-package zoom
+  :config
+  (setq zoom-size '(0.618 . 0.618))
+  (zoom-mode t))
 
 ;; https://github.com/hlissner/emacs-pug-mode
 (use-package pug-mode
@@ -294,7 +308,6 @@
   (add-hook 'js-mode-hook #'js2-minor-mode))
 
 ;; web-mode
-
 (use-package web-mode
   :ensure t
   :mode ("\\.html\\'"
@@ -305,11 +318,6 @@
     (setq web-mode-code-indent-offset 2)
     (setq web-mode-enable-auto-quoting nil)))
 
-;; https://github.com/cyrus-and/zoom
-(use-package zoom
-  :config
-  (setq zoom-size '(0.618 . 0.618))
-  (zoom-mode t))
 
 ;; https://magit.vc
 (use-package magit

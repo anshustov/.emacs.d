@@ -2,10 +2,7 @@
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
 
 * Конфигурация Emacs.
-
-V 1.0 - текущая версия.
-
-* TODO
+** TODO
 
 
 - [ ] orgmode настройки экспорта
@@ -43,13 +40,14 @@ Hack - шрифт моноширинный c однозначным начерт
 
 https://github.com/source-foundry/Hack
 
-*** cyberpunk-theme
+*** doom-themes
 
-Контрастная тема с черным фоном.
+Контрастная тема с черным фоном а также модлайн.
 
 Ссылка на проект:
 
-https://github.com/n3mo/cyberpunk-theme.el
+https://github.com/hlissner/emacs-doom-themes
+https://github.com/seagle0128/doom-modeline
 
 *** multiple-cursors
 
