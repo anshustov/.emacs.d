@@ -104,25 +104,6 @@ https://github.com/jrblevin/markdown-mode
 Ссылка на проект:
 
 http://web-mode.org
-
-*** mmm-mode
-
-Мульти языковой пакет.
-
-Ссылка на проект:
-
-https://github.com/purcell/mmm-mode
-
-*** web-beautify
-
-Позволяет одной командой упорядочить структуру кода. Требует дополнительную установку в систему. 
-
-npm -g install js-beautify
-
-Ссылка на проект:
-
-https://github.com/yasuyk/web-beautify
-
 *** zoom
 
 Автоматически увеличивает размер активного буфера.
@@ -179,18 +160,3 @@ js2-mode
 
 https://github.com/mooz/js2-mode
 
-*** org-to-pdf
-
-org-to-pdf основан на:
-
-Ссылка на проект:
-
-http://nickguthrie.com/archives/276
-
-*** org-brain
-
-Для создания концептуальных схем в org-mode
-
-Ссылка на проект:
-
-https://github.com/Kungsgeten/org-brain

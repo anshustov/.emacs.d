@@ -180,23 +180,6 @@
 ;; Пакеты
 ;;
 
-;; org-mode
-
-(use-package org
-  :ensure t
-  :mode ("\\.org\\'" . org-mode)
-  :bind (("C-c a" . org-agenda))
-  :config
-  (progn
-    (setq org-directory "~/org")
-    (setq org-agenda-files
-          (mapcar (lambda (path) (concat org-directory path))
-                  '("~/Drive/dev/doc/org")))
-;; Подсветка блока с кодом.
-    (setq org-src-fontify-natively t)
-    )
-  )
-
 ;; eshell
 (add-hook 'shell-mode-hook
 	  (lambda ()
@@ -204,6 +187,22 @@
 	    (define-key shell-mode-map (kbd "<M-down>") 'comint-next-input)
 	    )
 	  )
+
+;; org-mode
+(use-package org
+  :ensure t
+  :mode ("\\.org\\'" . org-mode)
+  :bind (("C-c a" . org-agenda))
+  :config
+  (progn
+    (setq org-directory "~/Drive/dev/doc/org")
+    (setq org-agenda-files
+          (mapcar (lambda (path) (concat org-directory path))
+                  '("/todo.org")))
+;; Подсветка блока с кодом.
+    (setq org-src-fontify-natively t)
+    )
+  )
 
 ;; https://github.com/bbatsov/projectile
 (use-package projectile
@@ -214,7 +213,6 @@
   (projectile-mode +1))
 
 ;; https://github.com/magnars/multiple-cursors.el
-
 (use-package multiple-cursors
   :bind (:map modi-mode-map
          ("C-S-c C-S-c" . mc/edit-lines)
@@ -240,14 +238,23 @@
 
 ;; https://github.com/joaotavora/yasnippet
 (use-package yasnippet
-  :ensure    t)
+  :diminish yas-minor-mode
+  :ensure t
+  :config
+  (yas-global-mode t)
+  :init
+  (setq yas-alias-to-yas/prefix-p nil))
+(use-package yasnippet-snippets
+  :ensure t)
 
 ;; https://company-mode.github.io
 (use-package company
   :ensure t
   :diminish company-mode
+  :defer 2
+  :bind ("C-<tab>" . company-complete)
   :config
-  (add-hook 'after-init-hook #'global-company-mode))
+  (global-company-mode t))
 
 ;; https://github.com/zk-phi/indent-guide
 (use-package
@@ -256,7 +263,8 @@
 
 ;; markdown-mode
 (use-package markdown-mode
-  :ensure    t)
+  :mode "\\.md\\'"
+  :ensure t)
 
 ;; https://github.com/smihica/emmet-mode
 (use-package emmet-mode
@@ -264,13 +272,17 @@
 
 ;; https://github.com/hlissner/emacs-pug-mode
 (use-package pug-mode
-  :ensure    t)
+  :ensure t
+  :mode
+  ("\\.pug\\'" . pug-mode)
+  :init
+  (setq pug-tab-width 2))
 
 ;; php-mode
 (use-package php-mode
-  :ensure    t
-  :config
-  (add-hook 'php-mode-hook #'php-enable-psr2-coding-style))
+  :ensure t
+  :mode
+  ("\\.php\\'" . php-mode))
 
 ;; https://github.com/mooz/js2-mode
 (use-package js2-mode
@@ -281,11 +293,14 @@
 ;; web-mode
 
 (use-package web-mode
-  :ensure    t
+  :ensure t
+  :mode ("\\.html\\'"
+         "\\.css\\'"
+         "\\.php\\'")
   :config
   (progn
-    (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-    (add-to-list 'web-mode-engines-alist '("php"  . "\\.php\\'"))))
+    (setq web-mode-code-indent-offset 2)
+    (setq web-mode-enable-auto-quoting nil)))
 
 ;; https://github.com/cyrus-and/zoom
 (use-package zoom
@@ -295,11 +310,35 @@
 
 ;; https://magit.vc
 (use-package magit
-  :ensure t)
+  :ensure t
+  :bind
+  ("C-x g" . magit-status))
 
 ;; https://www.gnu.org/software/auctex/
 (use-package tex
-  :ensure auctex)
+ :ensure auctex)
+
+;;https://github.com/hniksic/emacs-htmlize
+(use-package htmlize
+  :commands (htmlize-buffer
+             htmlize-file
+             htmlize-many-files
+             htmlize-many-files-dired
+             htmlize-region))
+
+;; https://www.gnu.org/software/auctex/
+(use-package ace-jump-mode
+  :diminish ace-jump-mode
+  :config (progn
+            (autoload
+              'ace-jump-mode
+              "ace-jump-mode"
+              "Emacs quick move minor mode"
+              t)
+            ;; you can select the key you prefer to
+            ;;(define-key global-map (kbd "C-c SPC") 'ace-jump-mode
+            (define-key global-map (kbd "C-c SPC") 'ace-jump-char-mode))
+  :ensure t)
 
 ;;
 ;; Тест
