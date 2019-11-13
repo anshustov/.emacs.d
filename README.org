@@ -1,3 +1,4 @@
+
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
 
 * Конфигурация Emacs.
@@ -6,11 +7,12 @@ V 1.0 - текущая версия.
 
 * TODO
 
+
 - [ ] orgmode настройки экспорта
-- [ ] use-package
 - [ ] разбить конфигурацию не несколько файлов
 
-Интересные пакеты:
+ Потонцеальные пакеты:
+- [ ] undo-tree
 - [ ] Mu4e
 - [ ] indium?
 - [ ] tern?
@@ -160,3 +162,10 @@ js2-mode
 
 https://github.com/mooz/js2-mode
 
+*** smartparens
+
+smartparens
+
+Ссылка на проект:
+
+https://github.com/Fuco1/smartparens

@@ -45,6 +45,9 @@
 ;; Шрифт
 (set-frame-font "Hack 12" nil t)
 
+;; Добавление русской раскладки, С-| для переключения
+(setq default-input-method 'russian-computer)
+
 ;; Лучшая отрисовка буфера
 (setq redisplay-dont-pause t)
 
@@ -340,6 +343,13 @@
             (define-key global-map (kbd "C-c SPC") 'ace-jump-char-mode))
   :ensure t)
 
+;; https://github.com/Fuco1/smartparens
+(use-package smartparens
+  :diminish smartparens-mode
+  :init (smartparens-global-mode 1)
+  ;; :defer t
+  :ensure t)
+
 ;;
 ;; Тест
 ;;
@@ -357,7 +367,6 @@
 
 ;;(ivy-mode 1)
 ;;(global-set-key "\C-s" 'swiper)
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -365,7 +374,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (auctex magit zoom web-mode js2-mode php-mode pug-mode emmet-mode markdown-mode indent-guide company yasnippet multiple-cursors projectile cyberpunk-theme use-package))))
+    (smartparens zoom yasnippet-snippets web-mode use-package pug-mode projectile php-mode multiple-cursors markdown-mode magit js2-mode indent-guide htmlize emmet-mode cyberpunk-theme company auctex ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
