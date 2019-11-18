@@ -4,7 +4,6 @@
 * Конфигурация Emacs.
 ** TODO
 
-
 - [ ] orgmode настройки экспорта
 - [ ] разбить конфигурацию не несколько файлов
 
@@ -22,8 +21,6 @@
 - [ ] org-cliplink?
 - [ ] markdown-mode+?
 - [ ] markdown-toc?
-- [ ] swiper
-- [ ] counsel
 - [ ] org-brain
 - [ ] json-mode
 
