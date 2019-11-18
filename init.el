@@ -31,7 +31,6 @@
 ;;
 
 ;; Тема
-
 (use-package doom-themes
   :if (window-system)
   :ensure t
@@ -44,12 +43,19 @@
     (set-face-attribute `mode-line-inactive nil :box nil)
     ))
 
+;; Модлайн
 (use-package doom-modeline
       :ensure t
       :hook (after-init . doom-modeline-mode))
 
+;; Скрыть строку состояния
+;;(setq-default mode-line-format nil)
+
+;; Цвет отступа окна
+(set-face-background 'fringe "black")
+
 ;; Шрифт
-(set-frame-font "Hack 12" nil t)
+(set-frame-font "Hack 14" nil t)
 
 ;; Добавление русской раскладки, С-| для переключения
 (setq default-input-method 'russian-computer)
@@ -90,9 +96,6 @@
 ;; Сокращенные ответы в минибуфере
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; Скрыть строку состояния
-;;(setq-default mode-line-format nil)
-
 ;; Сохранить историю минибуферов
 (savehist-mode 1)
 ;; Сохранить позицию курсора
@@ -114,12 +117,15 @@
 
 ;; Отключаем автозаполнение строки по ширине
 (auto-fill-mode -1)
+
 ;; Переносить по словам
 (setq word-wrap t)
-;;
-(set-default 'truncate-lines t)
+
 ;; Не отображать символ переноса
 ;;(global-visual-line-mode t)
+
+;; Пкозывать специальный символ если строка вышла за пределы окна
+(set-default 'truncate-lines t)
 
 ;; Удалять выделенный текст при вводе
 (delete-selection-mode)
@@ -145,9 +151,7 @@
 ;; Тип курсора
 (setq-default cursor-type 'hollow)
 ;; Цвет курсора
-(set-cursor-color "#cd1076")
-;; Цвет отступа окна
-(set-face-background 'fringe "black")
+;;(set-cursor-color "#ff0000")
 
 ;;
 ;; Резервное копирование
@@ -193,9 +197,7 @@
 (add-hook 'shell-mode-hook
 	  (lambda ()
 	    (define-key shell-mode-map (kbd "<M-up>") 'comint-previous-input)
-	    (define-key shell-mode-map (kbd "<M-down>") 'comint-next-input)
-	    )
-	  )
+	    (define-key shell-mode-map (kbd "<M-down>") 'comint-next-input)))
 
 ;; org-mode
 (use-package org
@@ -208,42 +210,23 @@
     (setq org-agenda-files
           (mapcar (lambda (path) (concat org-directory path))
                   '("/todo.org")))
-;; Подсветка блока с кодом.
-    (setq org-src-fontify-natively t)
-    )
-  )
+    ;; Подсветка блока с кодом.
+    (setq org-src-fontify-natively t)))
 
 ;; https://github.com/bbatsov/projectile
 (use-package projectile
   :ensure t
   :config
-  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode +1))
 
 ;; https://github.com/magnars/multiple-cursors.el
 (use-package multiple-cursors
-  :bind (:map modi-mode-map
-         ("C-S-c C-S-c" . mc/edit-lines)
-         ("C->" . mc/mark-next-like-this)
-         ("C-<" . mc/mark-previous-like-this)
-         ("C-c C-<" . mc/mark-all-like-this)
-         ("C-S-<mouse-1>" . mc/add-cursor-on-click))
-  :bind (:map region-bindings-mode-map
-         ("a" . mc/mark-all-like-this)
-         ("p" . mc/mark-previous-like-this)
-         ("n" . mc/mark-next-like-this)
-         ("P" . mc/unmark-previous-like-this)
-         ("N" . mc/unmark-next-like-this)
-         ("[" . mc/cycle-backward)
-         ("]" . mc/cycle-forward)
-         ("m" . mc/mark-more-like-this-extended)
-         ("h" . mc-hide-unmatched-lines-mode)
-         ("\\" . mc/vertical-align-with-space)
-         ("#" . mc/insert-numbers) ; use num prefix to set the starting number
-         ("^" . mc/edit-beginnings-of-lines)
-         ("$" . mc/edit-ends-of-lines))
-  :init)
+  :ensure t
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+	 ("C->" . mc/mark-next-like-this)
+	 ("C-<" . mc/mark-previous-like-this)
+	 ("C-c o" . mc/mark-all-like-this)))
 
 ;; https://github.com/joaotavora/yasnippet
 (use-package yasnippet
@@ -260,7 +243,6 @@
 (use-package company
   :ensure t
   :diminish company-mode
-  :defer 2
   :bind ("C-<tab>" . company-complete)
   :config
   (global-company-mode t))
@@ -357,7 +339,6 @@
 (use-package smartparens
   :diminish smartparens-mode
   :init (smartparens-global-mode 1)
-  ;; :defer t
   :ensure t)
 
 ;; https://github.com/abo-abo/swiper
@@ -379,14 +360,19 @@
   :ensure t
   :config
   (global-set-key (kbd "M-x") 'counsel-M-x)
-  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-  (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-  (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-  (global-set-key (kbd "<f1> l") 'counsel-find-library)
-  (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-  (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-  (global-set-key (kbd "C-c g") 'counsel-git)
-  (global-set-key (kbd "C-c j") 'counsel-git-grep)
-  (global-set-key (kbd "C-c a") 'counsel-ag)
-  (global-set-key (kbd "C-x l") 'counsel-locate)
-  (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file))
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (counsel swiper ivy smartparens ace-jump-mode htmlize auctex magit web-mode js2-mode php-mode pug-mode zoom emmet-mode markdown-mode indent-guide company yasnippet-snippets yasnippet multiple-cursors projectile doom-modeline doom-themes use-package))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
