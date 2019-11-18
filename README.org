@@ -9,6 +9,8 @@
 - [ ] разбить конфигурацию не несколько файлов
 
  Потонцеальные пакеты:
+
+- [ ] flycheck
 - [ ] undo-tree
 - [ ] Mu4e
 - [ ] indium?
@@ -20,11 +22,9 @@
 - [ ] org-cliplink?
 - [ ] markdown-mode+?
 - [ ] markdown-toc?
-- [ ] markdown-mode+?
 - [ ] swiper
 - [ ] counsel
 - [ ] org-brain
-- [ ] htmlize
 - [ ] json-mode
 
 Данная конфигурация Emacs создана с целью адаптировать его для WEB разработки в самом минималистичном дизайне. 
@@ -167,3 +167,10 @@ smartparens
 Ссылка на проект:
 
 https://github.com/Fuco1/smartparens
+*** swiper counsel
+
+swiper counsel
+
+Ссылка на проект:
+
+https://github.com/abo-abo/swiper

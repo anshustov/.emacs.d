@@ -1,5 +1,8 @@
 (require 'package)
 
+(setq load-prefer-newer t)
+(setq warning-minimum-level :emergency)
+
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 ;;(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
@@ -34,7 +37,7 @@
   :ensure t
   :init
   (progn
-    (load-theme 'doom-molokai t)
+    (load-theme 'doom-peacock' t)
     ;; Убрать границу вокруг строки состояния активного окна
     (set-face-attribute `mode-line nil :box nil)
     ;; Убрать границу вокруг строки состояния неактивного окна
@@ -318,7 +321,6 @@
     (setq web-mode-code-indent-offset 2)
     (setq web-mode-enable-auto-quoting nil)))
 
-
 ;; https://magit.vc
 (use-package magit
   :ensure t
@@ -340,7 +342,7 @@
 ;; https://www.gnu.org/software/auctex/
 (use-package ace-jump-mode
   :diminish ace-jump-mode
-  :config (progn
+  :config (prognxc
             (autoload
               'ace-jump-mode
               "ace-jump-mode"
@@ -358,34 +360,33 @@
   ;; :defer t
   :ensure t)
 
-;;
-;; Тест
-;;
+;; https://github.com/abo-abo/swiper
+(use-package ivy
+  :ensure t
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t)
+  (global-set-key (kbd "C-c C-r") 'ivy-resume)
+  (global-set-key (kbd "<f6>") 'ivy-resume))
 
-;; http://www.djcbsoftware.nl/code/mu/
-;; brew install mu
-;; sudo mount -uw /
-;; sudo ln -s /Applications/Emacs.app/Contents/MacOS/Emacs /usr/bin/emacs
-;; EMACS=$(which emacs)
+(use-package swiper
+  :ensure t
+  :config
+  (global-set-key "\C-s" 'swiper))
 
-;;(add-to-list 'load-path "/usr/local/bin/mu")
-;;(require 'mu4e)
-
-;; ivy
-
-;;(ivy-mode 1)
-;;(global-set-key "\C-s" 'swiper)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (smartparens zoom yasnippet-snippets web-mode use-package pug-mode projectile php-mode multiple-cursors markdown-mode magit js2-mode indent-guide htmlize emmet-mode cyberpunk-theme company auctex ace-jump-mode))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(use-package counsel
+  :ensure t
+  :config
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+  (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+  (global-set-key (kbd "<f1> l") 'counsel-find-library)
+  (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+  (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+  (global-set-key (kbd "C-c g") 'counsel-git)
+  (global-set-key (kbd "C-c j") 'counsel-git-grep)
+  (global-set-key (kbd "C-c a") 'counsel-ag)
+  (global-set-key (kbd "C-x l") 'counsel-locate)
+  (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
