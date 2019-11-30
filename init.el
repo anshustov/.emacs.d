@@ -31,12 +31,13 @@
 ;;
 
 ;; Тема
+;; set-background-color gray5
 (use-package doom-themes
   :if (window-system)
-  :ensure t
   :init
   (progn
     (load-theme 'doom-peacock' t)
+    ;;(load-theme 'doom-solarized-light' t)
     ;; Убрать границу вокруг строки состояния активного окна
     (set-face-attribute `mode-line nil :box nil)
     ;; Убрать границу вокруг строки состояния неактивного окна
@@ -46,16 +47,16 @@
 ;; Модлайн
 (use-package doom-modeline
       :ensure t
-      :hook (after-init . doom-modeline-mode))
+      :hook (after-init . doom-modeline-mode)) 
 
 ;; Скрыть строку состояния
 ;;(setq-default mode-line-format nil)
 
 ;; Цвет отступа окна
-(set-face-background 'fringe "black")
+(set-face-background 'fringe "gray5")
 
 ;; Шрифт
-(set-frame-font "Hack 14" nil t)
+(set-frame-font "Hack 12" nil t)
 
 ;; Добавление русской раскладки, С-| для переключения
 (setq default-input-method 'russian-computer)
@@ -210,6 +211,8 @@
     (setq org-agenda-files
           (mapcar (lambda (path) (concat org-directory path))
                   '("/todo.org")))
+    ;; Использовать xelatex.
+    (setq org-latex-compiler "xelatex")
     ;; Подсветка блока с кодом.
     (setq org-src-fontify-natively t)))
 
@@ -367,6 +370,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("f2b83b9388b1a57f6286153130ee704243870d40ae9ec931d0a1798a5a916e76" "f589e634c9ff738341823a5a58fc200341b440611aaa8e0189df85b44533692b" "f30aded97e67a487d30f38a1ac48eddb49fdb06ac01ebeaff39439997cbdd869" "2878517f049b28342d7a360fd3f4b227086c4be8f8409f32e0f234d129cee925" "f951343d4bbe5a90dba0f058de8317ca58a6822faa65d8463b0e751a07ec887c" "67798cfaf7b064072bf519ed1ade02a8f4412df89c560e35f25d1936cf35b8ce" default)))
  '(package-selected-packages
    (quote
     (counsel swiper ivy smartparens ace-jump-mode htmlize auctex magit web-mode js2-mode php-mode pug-mode zoom emmet-mode markdown-mode indent-guide company yasnippet-snippets yasnippet multiple-cursors projectile doom-modeline doom-themes use-package))))
