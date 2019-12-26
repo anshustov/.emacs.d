@@ -24,8 +24,6 @@
 ;; Расширения
 ;;
 
-;;(load-file "~/.emacs.d/org-to-pdf.el")
-
 ;;
 ;; ВНЕШНИЙ ВИД
 ;;
@@ -54,6 +52,7 @@
 
 ;; Цвет отступа окна
 (set-face-background 'fringe "gray5")
+(set-background-color "gray5")
 
 ;; Шрифт
 (set-frame-font "Hack 12" nil t)
@@ -181,14 +180,10 @@
       )
 
 ;; Пути
-
-(setenv "PATH"
-  (concat
-   "/usr/local/bin" ":"
-   "/Library/TeX/texbin" ":"
-   (getenv "PATH")
-  )
-)
+(use-package exec-path-from-shell
+  :config (exec-path-from-shell-initialize))
+(add-to-list 'exec-path "/usr/local/bin")
+(add-to-list 'exec-path "/Library/TeX/texbin")
 
 ;;
 ;; Пакеты
@@ -272,7 +267,7 @@
 ;; https://github.com/cyrus-and/zoom
 (use-package zoom
   :config
-  (setq zoom-size '(0.618 . 0.618))
+  (setq zoom-size '(0.5 . 0.8))
   (zoom-mode t))
 
 ;; https://github.com/hlissner/emacs-pug-mode
@@ -311,10 +306,6 @@
   :ensure t
   :bind
   ("C-x g" . magit-status))
-
-;; https://www.gnu.org/software/auctex/
-(use-package tex
- :ensure auctex)
 
 ;;https://github.com/hniksic/emacs-htmlize
 (use-package htmlize
@@ -365,7 +356,26 @@
   (global-set-key (kbd "M-x") 'counsel-M-x)
   (global-set-key (kbd "C-x C-f") 'counsel-find-file))
 
+;; https://www.gnu.org/software/auctex/
+(use-package tex
+  :ensure auctex)
+
+;; https://github.com/jsinglet/latex-preview-pane
 (custom-set-variables
+<<<<<<< HEAD
+ '(pdf-latex-command "xelatex"))
+(use-package latex-preview-pane
+    :commands latex-preview-pane-mode
+    :diminish latex-preview-pane-mode
+    :init (add-hook 'LaTeX-mode-hook
+                    '(lambda ()
+                       (delete-other-windows)
+                       (latex-preview-pane-mode))))
+(add-hook 'LaTeX-mode-hook #'visual-line-mode)
+;;
+;; Системные переменные
+;;
+=======
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
@@ -382,3 +392,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+>>>>>>> 8a88896... xelatex
