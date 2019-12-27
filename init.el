@@ -362,7 +362,6 @@
 
 ;; https://github.com/jsinglet/latex-preview-pane
 (custom-set-variables
-<<<<<<< HEAD
  '(pdf-latex-command "xelatex"))
 (use-package latex-preview-pane
     :commands latex-preview-pane-mode
