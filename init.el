@@ -29,18 +29,24 @@
 ;;
 
 ;; Тема
+(use-package srcery-theme
+    :ensure t
+    :demand
+    :config
+    (load-theme 'srcery t))
+
 ;; set-background-color gray5
-(use-package doom-themes
-  :if (window-system)
-  :init
-  (progn
-    (load-theme 'doom-peacock' t)
-    ;;(load-theme 'doom-solarized-light' t)
-    ;; Убрать границу вокруг строки состояния активного окна
-    (set-face-attribute `mode-line nil :box nil)
-    ;; Убрать границу вокруг строки состояния неактивного окна
-    (set-face-attribute `mode-line-inactive nil :box nil)
-    ))
+;;(use-package doom-themes
+;;  :if (window-system)
+;;  :init
+;;  (progn
+;;    (load-theme 'doom-peacock' t)
+;;    ;;(load-theme 'doom-solarized-light' t)
+;;    ;; Убрать границу вокруг строки состояния активного окна
+;;    (set-face-attribute `mode-line nil :box nil)
+;;    ;; Убрать границу вокруг строки состояния неактивного окна
+;;    (set-face-attribute `mode-line-inactive nil :box nil)
+;;    ))
 
 ;; Модлайн
 (use-package doom-modeline
@@ -51,8 +57,8 @@
 ;;(setq-default mode-line-format nil)
 
 ;; Цвет отступа окна
-(set-face-background 'fringe "gray5")
-(set-background-color "gray5")
+(set-face-background 'fringe "gray7")
+(set-background-color "gray7")
 
 ;; Шрифт
 (set-frame-font "Hack 12" nil t)
@@ -202,14 +208,17 @@
   :bind (("C-c a" . org-agenda))
   :config
   (progn
-    (setq org-directory "~/Drive/dev/doc/org")
+    (setq org-directory "~/Drive/projects/")
     (setq org-agenda-files
           (mapcar (lambda (path) (concat org-directory path))
                   '("/todo.org")))
-    ;; Использовать xelatex.
-    (setq org-latex-compiler "xelatex")
-    ;; Подсветка блока с кодом.
-    (setq org-src-fontify-natively t)))
+    
+;; Использовать xelatex.
+(setq org-latex-compiler "xelatex")
+;; Подсветка блока с кодом.
+(setq org-src-fontify-natively t)))
+
+;;;;;;;;;;;;;;;;
 
 ;; https://github.com/bbatsov/projectile
 (use-package projectile
@@ -358,11 +367,11 @@
 
 ;; https://www.gnu.org/software/auctex/
 (use-package tex
-  :ensure auctex)
+  :ensure auctex
+  :config
+  (setq pdf-latex-command "xelatex")
+  )
 
-;; https://github.com/jsinglet/latex-preview-pane
-(custom-set-variables
- '(pdf-latex-command "xelatex"))
 (use-package latex-preview-pane
     :commands latex-preview-pane-mode
     :diminish latex-preview-pane-mode
@@ -371,6 +380,27 @@
                        (delete-other-windows)
                        (latex-preview-pane-mode))))
 (add-hook 'LaTeX-mode-hook #'visual-line-mode)
+
+;; Поддержка python
+(use-package elpy
+  :ensure t
+  :init
+  (elpy-enable))
+
 ;;
 ;; Системные переменные
 ;;
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (elpy latex-preview-pane auctex counsel swiper ivy smartparens ace-jump-mode htmlize magit web-mode js2-mode php-mode pug-mode zoom emmet-mode markdown-mode indent-guide company yasnippet-snippets yasnippet multiple-cursors projectile exec-path-from-shell doom-modeline srcery-theme use-package))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((((class color) (min-colors 257)) (:background "#1C1B19" :foreground "#FCE8C3")) (((class color) (min-colors 89)) (:background "black" :foreground "brightwhite")))))
