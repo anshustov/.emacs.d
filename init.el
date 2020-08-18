@@ -35,7 +35,6 @@
     :config
     (load-theme 'srcery t))
 
-;; set-background-color gray5
 ;;(use-package doom-themes
 ;;  :if (window-system)
 ;;  :init
@@ -51,14 +50,15 @@
 ;; Модлайн
 (use-package doom-modeline
       :ensure t
-      :hook (after-init . doom-modeline-mode)) 
+      :hook (after-init . doom-modeline-mode))
 
 ;; Скрыть строку состояния
 ;;(setq-default mode-line-format nil)
 
 ;; Цвет отступа окна
-(set-face-background 'fringe "gray7")
-(set-background-color "gray7")
+(set-face-background 'fringe "black")
+(set-background-color "black")
+(add-to-list 'default-frame-alist '(foreground-color . "white"))
 
 ;; Шрифт
 (set-frame-font "Hack 12" nil t)
@@ -212,13 +212,16 @@
     (setq org-agenda-files
           (mapcar (lambda (path) (concat org-directory path))
                   '("/todo.org")))
-    
-;; Использовать xelatex.
+
+(use-package org-bullets
+  :hook (org-mode . org-bullets-mode)
+  :config
+  (setq org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸")))
+ 
+;; Использовать xelatex.b
 (setq org-latex-compiler "xelatex")
 ;; Подсветка блока с кодом.
-(setq org-src-fontify-natively t)))
-
-;;;;;;;;;;;;;;;;
+(setq org-src-fontify-natively t)))Xf
 
 ;; https://github.com/bbatsov/projectile
 (use-package projectile
@@ -372,14 +375,14 @@
   (setq pdf-latex-command "xelatex")
   )
 
-(use-package latex-preview-pane
-    :commands latex-preview-pane-mode
-    :diminish latex-preview-pane-mode
-    :init (add-hook 'LaTeX-mode-hook
-                    '(lambda ()
-                       (delete-other-windows)
-                       (latex-preview-pane-mode))))
-(add-hook 'LaTeX-mode-hook #'visual-line-mode)
+;;(use-package latex-preview-pane
+;;    :commands latex-preview-pane-mode
+;;    :diminish latex-preview-pane-mode
+;;    :init (add-hook 'LaTeX-mode-hook
+;;                    '(lambda ()
+;;                       (delete-other-windows)
+;;                       (latex-preview-pane-mode))))
+;;(add-hook 'LaTeX-mode-hook #'visual-line-mode)
 
 ;; Поддержка python
 (use-package elpy
@@ -390,17 +393,3 @@
 ;;
 ;; Системные переменные
 ;;
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (elpy latex-preview-pane auctex counsel swiper ivy smartparens ace-jump-mode htmlize magit web-mode js2-mode php-mode pug-mode zoom emmet-mode markdown-mode indent-guide company yasnippet-snippets yasnippet multiple-cursors projectile exec-path-from-shell doom-modeline srcery-theme use-package))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((((class color) (min-colors 257)) (:background "#1C1B19" :foreground "#FCE8C3")) (((class color) (min-colors 89)) (:background "black" :foreground "brightwhite")))))
