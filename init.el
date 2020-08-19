@@ -221,7 +221,7 @@
 ;; Использовать xelatex.b
 (setq org-latex-compiler "xelatex")
 ;; Подсветка блока с кодом.
-(setq org-src-fontify-natively t)))Xf
+(setq org-src-fontify-natively t)))
 
 ;; https://github.com/bbatsov/projectile
 (use-package projectile
