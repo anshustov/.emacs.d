@@ -369,20 +369,9 @@ https://github.com/jsinglet/latex-preview-pane
  ;;(set-cursor-color "#ff0000")
  #+END_SRC
 
-** Остальное
+** Резервное копирование
 
  #+BEGIN_SRC emacs-lisp
- ;;
- ;; Расширения
- ;;
-
- ;;
- ;; ВНЕШНИЙ ВИД
- ;;
-
-
-
-
  ;;
  ;; Резервное копирование
  ;;
@@ -408,6 +397,22 @@ https://github.com/jsinglet/latex-preview-pane
        auto-save-timeout 20              ; Сохранять каждые 20 секунд
        auto-save-interval 200            ; Сохранять через кажды 200 набраных символов
        )
+ #+END_SRC
+
+** Остальное
+
+ #+BEGIN_SRC emacs-lisp
+ ;;
+ ;; Расширения
+ ;;
+
+ ;;
+ ;; ВНЕШНИЙ ВИД
+ ;;
+
+
+
+
 
  ;; Пути
  (use-package exec-path-from-shell
