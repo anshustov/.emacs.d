@@ -399,37 +399,30 @@ https://github.com/jsinglet/latex-preview-pane
        )
  #+END_SRC
 
-** Остальное
+** Пути
 
  #+BEGIN_SRC emacs-lisp
- ;;
- ;; Расширения
- ;;
-
- ;;
- ;; ВНЕШНИЙ ВИД
- ;;
-
-
-
-
-
  ;; Пути
  (use-package exec-path-from-shell
    :config (exec-path-from-shell-initialize))
  (add-to-list 'exec-path "/usr/local/bin")
  (add-to-list 'exec-path "/Library/TeX/texbin")
+ #+END_SRC
 
- ;;
- ;; Пакеты
- ;;
+* Пакеты
+** eshell
 
+ #+BEGIN_SRC emacs-lisp
  ;; eshell
  (add-hook 'shell-mode-hook
 	   (lambda ()
 	     (define-key shell-mode-map (kbd "<M-up>") 'comint-previous-input)
 	     (define-key shell-mode-map (kbd "<M-down>") 'comint-next-input)))
+ #+END_SRC
 
+** org-mode
+
+ #+BEGIN_SRC emacs-lisp
  ;; org-mode
  (use-package org
    :ensure t
@@ -451,14 +444,22 @@ https://github.com/jsinglet/latex-preview-pane
  (setq org-latex-compiler "xelatex")
  ;; Подсветка блока с кодом.
  (setq org-src-fontify-natively t)))
+ #+END_SRC
 
+** projectile
+
+ #+BEGIN_SRC emacs-lisp
  ;; https://github.com/bbatsov/projectile
  (use-package projectile
    :ensure t
    :config
    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
    (projectile-mode +1))
+ #+END_SRC
 
+** multiple-cursors
+
+ #+BEGIN_SRC emacs-lisp
  ;; https://github.com/magnars/multiple-cursors.el
  (use-package multiple-cursors
    :ensure t
@@ -466,7 +467,11 @@ https://github.com/jsinglet/latex-preview-pane
 	  ("C->" . mc/mark-next-like-this)
 	  ("C-<" . mc/mark-previous-like-this)
 	  ("C-c o" . mc/mark-all-like-this)))
+ #+END_SRC
 
+** yasnippet
+
+ #+BEGIN_SRC emacs-lisp
  ;; https://github.com/joaotavora/yasnippet
  (use-package yasnippet
    :diminish yas-minor-mode
@@ -477,7 +482,11 @@ https://github.com/jsinglet/latex-preview-pane
    (setq yas-alias-to-yas/prefix-p nil))
  (use-package yasnippet-snippets
    :ensure t)
+ #+END_SRC
 
+** company
+
+ #+BEGIN_SRC emacs-lisp
  ;; https://company-mode.github.io
  (use-package company
    :ensure t
@@ -485,16 +494,28 @@ https://github.com/jsinglet/latex-preview-pane
    :bind ("C-<tab>" . company-complete)
    :config
    (global-company-mode t))
+ #+END_SRC
 
+** indent-guide
+
+ #+BEGIN_SRC emacs-lisp
  ;; https://github.com/zk-phi/indent-guide
  (use-package indent-guide
    :config (indent-guide-global-mode 1))
+ #+END_SRC
 
+** markdown-mode
+
+ #+BEGIN_SRC emacs-lisp
  ;; markdown-mode
  (use-package markdown-mode
    :mode "\\.md\\'"
    :ensure t)
+ #+END_SRC
 
+** emmet-mode
+
+ #+BEGIN_SRC emacs-lisp
  ;; https://github.com/smihica/emmet-mode
  (use-package emmet-mode
    :diminish emmet-mode
@@ -504,33 +525,41 @@ https://github.com/jsinglet/latex-preview-pane
 	     (add-hook 'sgml-mode-hook 'emmet-mode)
 	     (add-hook 'css-mode-hook 'emmet-mode)
 	     (add-hook 'web-mode-hook 'emmet-mode)))
+ #+END_SRC
 
+** zoom
+
+ #+BEGIN_SRC emacs-lisp
  ;; https://github.com/cyrus-and/zoom
  (use-package zoom
    :config
    (setq zoom-size '(0.5 . 0.8))
    (zoom-mode t))
+ #+END_SRC
 
- ;; https://github.com/hlissner/emacs-pug-mode
- (use-package pug-mode
-   :ensure t
-   :mode
-   ("\\.pug\\'" . pug-mode)
-   :init
-   (setq pug-tab-width 2))
+** pug-mode
 
+ #+BEGIN_SRC emacs-lisp
  ;; php-mode
  (use-package php-mode
    :ensure t
    :mode
    ("\\.php\\'" . php-mode))
+ #+END_SRC
 
+** js2-mode
+
+ #+BEGIN_SRC emacs-lisp
  ;; https://github.com/mooz/js2-mode
  (use-package js2-mode
    :ensure    t
    :config
    (add-hook 'js-mode-hook #'js2-minor-mode))
+ #+END_SRC
 
+** web-mode
+
+ #+BEGIN_SRC emacs-lisp
  ;; web-mode
  (use-package web-mode
    :ensure t
@@ -541,13 +570,21 @@ https://github.com/jsinglet/latex-preview-pane
    (progn
      (setq web-mode-code-indent-offset 2)
      (setq web-mode-enable-auto-quoting nil)))
+ #+END_SRC
 
+** magit
+
+ #+BEGIN_SRC emacs-lisp
  ;; https://magit.vc
  (use-package magit
    :ensure t
    :bind
    ("C-x g" . magit-status))
+ #+END_SRC
 
+** htmlize
+
+ #+BEGIN_SRC emacs-lisp
  ;;https://github.com/hniksic/emacs-htmlize
  (use-package htmlize
    :commands (htmlize-buffer
@@ -555,8 +592,11 @@ https://github.com/jsinglet/latex-preview-pane
 	      htmlize-many-files
 	      htmlize-many-files-dired
 	      htmlize-region))
+ #+END_SRC
 
- ;; https://www.gnu.org/software/auctex/
+** ace-jump-mode
+
+ #+BEGIN_SRC emacs-lisp
  (use-package ace-jump-mode
    :diminish ace-jump-mode
    :config (progn
@@ -569,13 +609,21 @@ https://github.com/jsinglet/latex-preview-pane
 	     ;;(define-key global-map (kbd "C-c SPC") 'ace-jump-mode
 	     (define-key global-map (kbd "C-c SPC") 'ace-jump-char-mode))
    :ensure t)
+ #+END_SRC
 
+** smartparens
+
+ #+BEGIN_SRC emacs-lisp
  ;; https://github.com/Fuco1/smartparens
  (use-package smartparens
    :diminish smartparens-mode
    :init (smartparens-global-mode 1)
    :ensure t)
+ #+END_SRC
 
+** ivy
+
+ #+BEGIN_SRC emacs-lisp
  ;; https://github.com/abo-abo/swiper
  (use-package ivy
    :ensure t
@@ -585,25 +633,41 @@ https://github.com/jsinglet/latex-preview-pane
    (setq enable-recursive-minibuffers t)
    (global-set-key (kbd "C-c C-r") 'ivy-resume)
    (global-set-key (kbd "<f6>") 'ivy-resume))
+ #+END_SRC
 
+** swiper
+
+ #+BEGIN_SRC emacs-lisp
  (use-package swiper
    :ensure t
    :config
    (global-set-key "\C-s" 'swiper))
+ #+END_SRC
 
+** counsel
+
+ #+BEGIN_SRC emacs-lisp
  (use-package counsel
    :ensure t
    :config
    (global-set-key (kbd "M-x") 'counsel-M-x)
    (global-set-key (kbd "C-x C-f") 'counsel-find-file))
+ #+END_SRC
 
+** tex
+
+ #+BEGIN_SRC emacs-lisp
  ;; https://www.gnu.org/software/auctex/
  (use-package tex
    :ensure auctex
    :config
    (setq pdf-latex-command "xelatex")
    )
+ #+END_SRC
 
+** latex-preview-pane - ОТКЛЮЧЕН!
+
+ #+BEGIN_SRC emacs-lisp
  ;;(use-package latex-preview-pane
  ;;    :commands latex-preview-pane-mode
  ;;    :diminish latex-preview-pane-mode
@@ -612,7 +676,11 @@ https://github.com/jsinglet/latex-preview-pane
  ;;                       (delete-other-windows)
  ;;                       (latex-preview-pane-mode))))
  ;;(add-hook 'LaTeX-mode-hook #'visual-line-mode)
+ #+END_SRC
 
+** elpy
+
+ #+BEGIN_SRC emacs-lisp
  ;; Поддержка python
  (use-package elpy
    :ensure t
