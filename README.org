@@ -30,233 +30,7 @@
 Данная конфигурация Emacs создана с целью адаптировать его для WEB разработки в самом минималистичном дизайне. 
 Целью создания была адаптация под маленькие экраны ноутбуков. Отключены все визуальные элементы emacs.
 
-* Используемые пакеты
-В данном разделе дано описание используемых пакетов.
-
-*** Шрифт Hack
-Hack - шрифт моноширинный c однозначным начертанием символов. Необходимо скачать и установить в систему.
-
-Ссылка на проект:
-
-https://github.com/source-foundry/Hack
-
-*** doom-themes
-
-Контрастная тема с черным фоном а также модлайн.
-
-Ссылка на проект:
-
-https://github.com/hlissner/emacs-doom-themes
-https://github.com/seagle0128/doom-modeline
-
-*** multiple-cursors
-
-Пакет позволяющий включить несколько курсоров для одновременного ввода в нескольких местах.
-
-Ссылка на проект:
-
-https://github.com/magnars/multiple-cursors.el
-
-*** yasnippet
-
-Пакет для работы со снипетами (заготовками кода).
-
-Ссылка на проект:
-
-http://joaotavora.github.io/yasnippet/snippet-organization.html
-
-*** company
-
-Автодополнение при написании кода.
-
-Ссылка на проект:
-
-http://company-mode.github.io
-
-*** magit
-
-Оболочка для управления git в emacs.
-
-Ссылка на проект:
-
-https://magit.vc
-
-*** indent-guide
-
-Отображает уровень вложенности строк относительно текущей табуляции строки.
-
-Ссылка на проект:
-
-https://github.com/zk-phi/indent-guide
-
-*** markdown-mode
-
-Языковой пакет для markdown.
-
-Ссылка на проект:
-
-https://github.com/jrblevin/markdown-mode
-
-*** web-mode
-
-Мульти языковой пакет.
-
-Ссылка на проект:
-
-http://web-mode.org
-*** zoom
-
-Автоматически увеличивает размер активного буфера.
-
-Ссылка на проект:
-
-https://github.com/cyrus-and/zoom
-
-*** auctex
-
-Мульти языковой пакет для Tex подобной разметки (LaTex, XeLatex и т.д).
-
-Ссылка на проект:
-
-https://github.com/jwiegley/auctex
-
-*** htmlize
-
-Оформляет код в HTML для отображения на странице в виде блока.
-
-Ссылка на проект:
-
-https://github.com/hniksic/emacs-htmlize
-
-*** projectile
-
-Управление проектами.
-
-Ссылка на проект:
-
-https://github.com/bbatsov/projectile
-
-*** emmet-mode
-
-Добовляем функционал emmet.
-
-Ссылка на проект:
-
-https://github.com/smihica/emmet-mode
-
-*** pug-mode
-
-Режим pug
-
-Ссылка на проект:
-
-https://github.com/hlissner/emacs-pug-mode
-
-*** js2-mode
-
-js2-mode
-
-Ссылка на проект:
-
-https://github.com/mooz/js2-mode
-
-*** smartparens
-
-smartparens
-
-Ссылка на проект:
-
-https://github.com/Fuco1/smartparens
-*** swiper counsel
-
-swiper counsel
-
-Ссылка на проект:
-
-https://github.com/abo-abo/swiper
-
-*** auctex
-
-auctex
-
-Ссылка на проект:
-
-https://www.gnu.org/software/auctex/
-
-*** latex-preview-pane
-
-latex-preview-pane
-
-Ссылка на проект:
-
-https://github.com/jsinglet/latex-preview-pane
-
-
-#+BEGIN_SRC emacs-lisp
-
-#+END_SRC
-
 * Конфигурация
-** Менеджмент пакетов
-
- Автоматическая установка и обновление пакетов, используемых в use-package.
-
- #+BEGIN_SRC emacs-lisp
- (require 'package)
-
- (setq load-prefer-newer t)
- (setq warning-minimum-level :emergency)
-
- (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
- (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
- ;;(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
- (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
-
- (setq package-enable-at-startup nil)
- (package-initialize nil)
-
- ;; Установка use-package по необходимости
- (unless (package-installed-p 'use-package)
-   (package-refresh-contents)
-   (package-install 'use-package))
-
- ;; Автоустановка и автообновление пакетов
- (require 'use-package)
- (setq use-package-always-ensure t)
- #+END_SRC
-
-** Тема
-
- #+BEGIN_SRC emacs-lisp
- ;; Тема
- (use-package srcery-theme
-     :ensure t
-     :demand
-     :config
-     (load-theme 'srcery t))
-
- ;;(use-package doom-themes
- ;;  :if (window-system)
- ;;  :init
- ;;  (progn
- ;;    (load-theme 'doom-peacock' t)
- ;;    ;;(load-theme 'doom-solarized-light' t)
- ;;    ;; Убрать границу вокруг строки состояния активного окна
- ;;    (set-face-attribute `mode-line nil :box nil)
- ;;    ;; Убрать границу вокруг строки состояния неактивного окна
- ;;    (set-face-attribute `mode-line-inactive nil :box nil)
- ;;    ))
- #+END_SRC
- 
-** Строка состояни
-
- #+BEGIN_SRC emacs-lisp
- ;; Модлайн
- (use-package doom-modeline
-       :ensure t
-       :hook (after-init . doom-modeline-mode))
- #+END_SRC
-
 ** Внешний вид
 
  #+BEGIN_SRC emacs-lisp
@@ -409,8 +183,61 @@ https://github.com/jsinglet/latex-preview-pane
  (add-to-list 'exec-path "/Library/TeX/texbin")
  #+END_SRC
 
+** Шрифт Hack
+ Hack - шрифт моноширинный c однозначным начертанием символов. Необходимо скачать и установить в систему.
+
+ Ссылка на проект:
+
+ https://github.com/source-foundry/Hack
+
 * Пакеты
+** srcery
+
+ Контрастная тема с черным фоном.
+
+ Ссылка на проект:
+
+ https://github.com/hlissner/emacs-doom-themes
+
+ #+BEGIN_SRC emacs-lisp
+ ;; Тема
+ (use-package srcery-theme
+     :ensure t
+     :demand
+     :config
+     (load-theme 'srcery t))
+
+ ;;(use-package doom-themes
+ ;;  :if (window-system)
+ ;;  :init
+ ;;  (progn
+ ;;    (load-theme 'doom-peacock' t)
+ ;;    ;;(load-theme 'doom-solarized-light' t)
+ ;;    ;; Убрать границу вокруг строки состояния активного окна
+ ;;    (set-face-attribute `mode-line nil :box nil)
+ ;;    ;; Убрать границу вокруг строки состояния неактивного окна
+ ;;    (set-face-attribute `mode-line-inactive nil :box nil)
+ ;;    ))
+ #+END_SRC
+ 
+** doom-modeline-mode
+
+ Строка состояний
+
+ Ссылка на проект:
+
+ https://github.com/seagle0128/doom-modeline
+
+ #+BEGIN_SRC emacs-lisp
+ ;; Модлайн
+ (use-package doom-modeline
+       :ensure t
+       :hook (after-init . doom-modeline-mode))
+ #+END_SRC
+
 ** eshell
+
+ Настройки сочетаний клавиш eshell
 
  #+BEGIN_SRC emacs-lisp
  ;; eshell
@@ -421,6 +248,12 @@ https://github.com/jsinglet/latex-preview-pane
  #+END_SRC
 
 ** org-mode
+
+ Режим работы с задачами и заметками.
+
+ Ссылка на проект:
+
+ https://orgmode.org
 
  #+BEGIN_SRC emacs-lisp
  ;; org-mode
@@ -440,13 +273,19 @@ https://github.com/jsinglet/latex-preview-pane
    :config
    (setq org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸")))
  
- ;; Использовать xelatex.b
+ ;; Использовать xelatex
  (setq org-latex-compiler "xelatex")
  ;; Подсветка блока с кодом.
  (setq org-src-fontify-natively t)))
  #+END_SRC
 
 ** projectile
+
+ Управление проектами.
+
+ Ссылка на проект:
+
+ https://github.com/bbatsov/projectile
 
  #+BEGIN_SRC emacs-lisp
  ;; https://github.com/bbatsov/projectile
@@ -459,6 +298,13 @@ https://github.com/jsinglet/latex-preview-pane
 
 ** multiple-cursors
 
+ Пакет позволяющий включить несколько курсоров для одновременного ввода в нескольких местах.
+
+ Ссылка на проект:
+
+ https://github.com/magnars/multiple-cursors.el
+
+
  #+BEGIN_SRC emacs-lisp
  ;; https://github.com/magnars/multiple-cursors.el
  (use-package multiple-cursors
@@ -469,22 +315,13 @@ https://github.com/jsinglet/latex-preview-pane
 	  ("C-c o" . mc/mark-all-like-this)))
  #+END_SRC
 
-** yasnippet
-
- #+BEGIN_SRC emacs-lisp
- ;; https://github.com/joaotavora/yasnippet
- (use-package yasnippet
-   :diminish yas-minor-mode
-   :ensure t
-   :config
-   (yas-global-mode t)
-   :init
-   (setq yas-alias-to-yas/prefix-p nil))
- (use-package yasnippet-snippets
-   :ensure t)
- #+END_SRC
-
 ** company
+
+ Автодополнение при написании кода.
+
+ Ссылка на проект:
+
+ http://company-mode.github.io
 
  #+BEGIN_SRC emacs-lisp
  ;; https://company-mode.github.io
@@ -498,36 +335,25 @@ https://github.com/jsinglet/latex-preview-pane
 
 ** indent-guide
 
+ Отображает уровень вложенности строк относительно текущей табуляции строки.
+
+ Ссылка на проект:
+
+ https://github.com/zk-phi/indent-guide
+
  #+BEGIN_SRC emacs-lisp
  ;; https://github.com/zk-phi/indent-guide
  (use-package indent-guide
    :config (indent-guide-global-mode 1))
  #+END_SRC
 
-** markdown-mode
-
- #+BEGIN_SRC emacs-lisp
- ;; markdown-mode
- (use-package markdown-mode
-   :mode "\\.md\\'"
-   :ensure t)
- #+END_SRC
-
-** emmet-mode
-
- #+BEGIN_SRC emacs-lisp
- ;; https://github.com/smihica/emmet-mode
- (use-package emmet-mode
-   :diminish emmet-mode
-   :init (require 'emmet-mode)
-   :config (progn
-	     (add-hook 'html-mode-hook 'emmet-mode)
-	     (add-hook 'sgml-mode-hook 'emmet-mode)
-	     (add-hook 'css-mode-hook 'emmet-mode)
-	     (add-hook 'web-mode-hook 'emmet-mode)))
- #+END_SRC
-
 ** zoom
+
+ Автоматически увеличивает размер активного буфера.
+
+ Ссылка на проект:
+
+ https://github.com/cyrus-and/zoom
 
  #+BEGIN_SRC emacs-lisp
  ;; https://github.com/cyrus-and/zoom
@@ -537,42 +363,102 @@ https://github.com/jsinglet/latex-preview-pane
    (zoom-mode t))
  #+END_SRC
 
-** pug-mode
+** ivy
+
+ Упрощает работу с минибуфером.
+ 
+ Ссылка на проект:
+
+ https://github.com/abo-abo/swiper
 
  #+BEGIN_SRC emacs-lisp
- ;; php-mode
- (use-package php-mode
+ ;; https://github.com/abo-abo/swiper
+ (use-package ivy
    :ensure t
-   :mode
-   ("\\.php\\'" . php-mode))
+   :config
+   (ivy-mode 1)
+   (setq ivy-use-virtual-buffers t)
+   (setq enable-recursive-minibuffers t)
+   (global-set-key (kbd "C-c C-r") 'ivy-resume)
+   (global-set-key (kbd "<f6>") 'ivy-resume))
  #+END_SRC
 
-** js2-mode
+** swiper
+
+ swiper
+
+ Ссылка на проект:
+
+ https://github.com/abo-abo/swiper
 
  #+BEGIN_SRC emacs-lisp
- ;; https://github.com/mooz/js2-mode
- (use-package js2-mode
-   :ensure    t
+ (use-package swiper
+   :ensure t
    :config
-   (add-hook 'js-mode-hook #'js2-minor-mode))
+   (global-set-key "\C-s" 'swiper))
  #+END_SRC
 
-** web-mode
+** counsel
+
+ counsel
+
+ Ссылка на проект:
+
+ https://github.com/abo-abo/swiper
+
 
  #+BEGIN_SRC emacs-lisp
- ;; web-mode
- (use-package web-mode
+ (use-package counsel
    :ensure t
-   :mode ("\\.html\\'"
-	  "\\.css\\'"
-	  "\\.php\\'")
    :config
-   (progn
-     (setq web-mode-code-indent-offset 2)
-     (setq web-mode-enable-auto-quoting nil)))
+   (global-set-key (kbd "M-x") 'counsel-M-x)
+   (global-set-key (kbd "C-x C-f") 'counsel-find-file))
+ #+END_SRC
+
+** auctex
+
+ Мульти языковой пакет для Tex подобной разметки (LaTex, XeLatex и т.д).
+
+ Ссылка на проект:
+
+ https://github.com/jwiegley/auctex
+
+ #+BEGIN_SRC emacs-lisp
+ ;; https://www.gnu.org/software/auctex/
+ (use-package tex
+   :ensure auctex
+   :config
+   (setq pdf-latex-command "xelatex")
+   )
+ #+END_SRC
+
+** latex-preview-pane - ОТКЛЮЧЕН!
+
+ Панель автоматического просмотра pdf файла после сохранения org или tex файла.
+ Отключен: в windows пока не удалось заставить работать автоматически.
+
+ Ссылка на проект:
+
+ https://github.com/jsinglet/latex-preview-pane
+
+ #+BEGIN_SRC emacs-lisp
+ ;;(use-package latex-preview-pane
+ ;;    :commands latex-preview-pane-mode
+ ;;    :diminish latex-preview-pane-mode
+ ;;    :init (add-hook 'LaTeX-mode-hook
+ ;;                    '(lambda ()
+ ;;                       (delete-other-windows)
+ ;;                       (latex-preview-pane-mode))))
+ ;;(add-hook 'LaTeX-mode-hook #'visual-line-mode)
  #+END_SRC
 
 ** magit
+
+ Оболочка для управления git в emacs.
+
+ Ссылка на проект:
+
+ https://magit.vc
 
  #+BEGIN_SRC emacs-lisp
  ;; https://magit.vc
@@ -582,19 +468,29 @@ https://github.com/jsinglet/latex-preview-pane
    ("C-x g" . magit-status))
  #+END_SRC
 
-** htmlize
+** smartparens
+
+ smartparens
+
+ Ссылка на проект:
+
+ https://github.com/Fuco1/smartparens
 
  #+BEGIN_SRC emacs-lisp
- ;;https://github.com/hniksic/emacs-htmlize
- (use-package htmlize
-   :commands (htmlize-buffer
-	      htmlize-file
-	      htmlize-many-files
-	      htmlize-many-files-dired
-	      htmlize-region))
+ ;; https://github.com/Fuco1/smartparens
+ (use-package smartparens
+   :diminish smartparens-mode
+   :init (smartparens-global-mode 1)
+   :ensure t)
  #+END_SRC
 
 ** ace-jump-mode
+
+ Пакет для прыжков по тексту.
+
+ Ссылка на проект:
+
+ https://github.com/winterTTr/ace-jump-mode
 
  #+BEGIN_SRC emacs-lisp
  (use-package ace-jump-mode
@@ -611,79 +507,146 @@ https://github.com/jsinglet/latex-preview-pane
    :ensure t)
  #+END_SRC
 
-** smartparens
+** emmet-mode
+
+ Добовляем функционал emmet.
+
+ Ссылка на проект:
+
+ https://github.com/smihica/emmet-mode
 
  #+BEGIN_SRC emacs-lisp
- ;; https://github.com/Fuco1/smartparens
- (use-package smartparens
-   :diminish smartparens-mode
-   :init (smartparens-global-mode 1)
+ ;; https://github.com/smihica/emmet-mode
+ (use-package emmet-mode
+   :diminish emmet-mode
+   :init (require 'emmet-mode)
+   :config (progn
+	     (add-hook 'html-mode-hook 'emmet-mode)
+	     (add-hook 'sgml-mode-hook 'emmet-mode)
+	     (add-hook 'css-mode-hook 'emmet-mode)
+	     (add-hook 'web-mode-hook 'emmet-mode)))
+ #+END_SRC
+
+** web-mode
+
+ Мульти языковой пакет.
+
+ Ссылка на проект:
+
+ http://web-mode.org
+
+ #+BEGIN_SRC emacs-lisp
+ ;; web-mode
+ (use-package web-mode
+   :ensure t
+   :mode ("\\.html\\'"
+	  "\\.css\\'"
+	  "\\.php\\'")
+   :config
+   (progn
+     (setq web-mode-code-indent-offset 2)
+     (setq web-mode-enable-auto-quoting nil)))
+ #+END_SRC
+
+** yasnippet
+
+ Пакет для работы со снипетами (заготовками кода).
+
+ Ссылка на проект:
+
+ http://joaotavora.github.io/yasnippet/snippet-organization.html
+
+ #+BEGIN_SRC emacs-lisp
+ ;; https://github.com/joaotavora/yasnippet
+ (use-package yasnippet
+   :diminish yas-minor-mode
+   :ensure t
+   :config
+   (yas-global-mode t)
+   :init
+   (setq yas-alias-to-yas/prefix-p nil))
+ (use-package yasnippet-snippets
    :ensure t)
  #+END_SRC
 
-** ivy
+** htmlize
+
+ Оформляет код в HTML для отображения на странице в виде блока.
+
+ Ссылка на проект:
+
+ https://github.com/hniksic/emacs-htmlize
 
  #+BEGIN_SRC emacs-lisp
- ;; https://github.com/abo-abo/swiper
- (use-package ivy
+ ;;https://github.com/hniksic/emacs-htmlize
+ (use-package htmlize
+   :commands (htmlize-buffer
+	      htmlize-file
+	      htmlize-many-files
+	      htmlize-many-files-dired
+	      htmlize-region))
+ #+END_SRC
+
+** pug-mode
+
+ Режим pug
+
+ Ссылка на проект:
+
+ https://github.com/hlissner/emacs-pug-mode
+
+ #+BEGIN_SRC emacs-lisp
+ ;; php-mode
+ (use-package php-mode
    :ensure t
-   :config
-   (ivy-mode 1)
-   (setq ivy-use-virtual-buffers t)
-   (setq enable-recursive-minibuffers t)
-   (global-set-key (kbd "C-c C-r") 'ivy-resume)
-   (global-set-key (kbd "<f6>") 'ivy-resume))
+   :mode
+   ("\\.php\\'" . php-mode))
  #+END_SRC
 
-** swiper
+** markdown-mode
+
+ Языковой пакет для markdown.
+
+ Ссылка на проект:
+
+ https://github.com/jrblevin/markdown-mode
 
  #+BEGIN_SRC emacs-lisp
- (use-package swiper
-   :ensure t
-   :config
-   (global-set-key "\C-s" 'swiper))
+ ;; markdown-mode
+ (use-package markdown-mode
+   :mode "\\.md\\'"
+   :ensure t)
  #+END_SRC
 
-** counsel
+** js2-mode
+
+ js2-mode
+
+ Ссылка на проект:
+
+ https://github.com/mooz/js2-mode
 
  #+BEGIN_SRC emacs-lisp
- (use-package counsel
-   :ensure t
+ ;; https://github.com/mooz/js2-mode
+ (use-package js2-mode
+   :ensure    t
    :config
-   (global-set-key (kbd "M-x") 'counsel-M-x)
-   (global-set-key (kbd "C-x C-f") 'counsel-find-file))
- #+END_SRC
-
-** tex
-
- #+BEGIN_SRC emacs-lisp
- ;; https://www.gnu.org/software/auctex/
- (use-package tex
-   :ensure auctex
-   :config
-   (setq pdf-latex-command "xelatex")
-   )
- #+END_SRC
-
-** latex-preview-pane - ОТКЛЮЧЕН!
-
- #+BEGIN_SRC emacs-lisp
- ;;(use-package latex-preview-pane
- ;;    :commands latex-preview-pane-mode
- ;;    :diminish latex-preview-pane-mode
- ;;    :init (add-hook 'LaTeX-mode-hook
- ;;                    '(lambda ()
- ;;                       (delete-other-windows)
- ;;                       (latex-preview-pane-mode))))
- ;;(add-hook 'LaTeX-mode-hook #'visual-line-mode)
+   (add-hook 'js-mode-hook #'js2-minor-mode))
  #+END_SRC
 
 ** elpy
 
+ Поддержка python.
+
+ Ссылка на проект:
+
+ https://github.com/jorgenschaefer/elpy
+
  #+BEGIN_SRC emacs-lisp
- ;; Поддержка python
+ ;; python
  (use-package elpy
    :ensure t
    :init
    (elpy-enable))
  #+END_SRC
+
