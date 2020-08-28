@@ -31,43 +31,53 @@
 Целью создания была адаптация под маленькие экраны ноутбуков. Отключены все визуальные элементы emacs.
 
 * Конфигурация
-** Внешний вид
+** Цвета
 
  #+BEGIN_SRC emacs-lisp
-
- ;; Скрыть строку состояния
- ;;(setq-default mode-line-format nil)
-
- ;; Цвет отступа окна
+ ;; Цвет фона и рамки окна
  (set-face-background 'fringe "black")
  (set-background-color "black")
  (add-to-list 'default-frame-alist '(foreground-color . "white"))
+ #+END_SRC
 
+** Шрифт Hack
+
+ Hack - шрифт моноширинный c однозначным начертанием символов. Необходимо скачать и установить в систему.
+
+ Ссылка на проект:
+
+ https://github.com/source-foundry/Hack
+
+ #+BEGIN_SRC emacs-lisp
  ;; Шрифт
  (set-frame-font "Hack 12" nil t)
+ #+END_SRC
 
- ;; Добавление русской раскладки, С-| для переключения
- (setq default-input-method 'russian-computer)
+** Пути
 
- ;; Лучшая отрисовка буфера
- (setq redisplay-dont-pause t)
+ #+BEGIN_SRC emacs-lisp
+ ;; Пути
+ (use-package exec-path-from-shell
+   :config (exec-path-from-shell-initialize))
+ (add-to-list 'exec-path "/usr/local/bin")
+ (add-to-list 'exec-path "/Library/TeX/texbin")
+ #+END_SRC
 
- ;; Отключаем звуковой сигнал
- (setq ring-bell-function 'ignore)
+** Отключаем элементы управления
 
+ #+BEGIN_SRC emacs-lisp
  ;; Отключить окно приветсвия
  (setq inhibit-splash-screen  t)
+
  ;; Отключить приветсвенные сообщения
  (setq ingibit-startup-message t)
 
  ;; Отключить подсказку в пустом окне
  (setq initial-scratch-message "")
+
  ;; Отключить сообщение в минибуфере
  (defun display-startup-echo-area-message ()
    (message ""))
-
- ;; Включить текстовый режим при старте
- (setq initial-major-mode 'text-mode)
 
  ;; Отключаем подсказки
  (tooltip-mode -1)
@@ -77,78 +87,111 @@
  (tool-bar-mode -1)
  ;; Отключаем полосу прокрутки
  (scroll-bar-mode -1)
- ;; Отключить мигание курсора
- (blink-cursor-mode -1)
 
  ;; Отключить диалоговые окна
  (setq use-dialog-box nil)
+
  ;; Сокращенные ответы в минибуфере
  (defalias 'yes-or-no-p 'y-or-n-p)
 
+ ;; Скрыть строку состояния
+ ;;(setq-default mode-line-format nil)
+ #+END_SRC
+
+** Курсор
+
+ #+BEGIN_SRC emacs-lisp
+ ;; Тип курсора
+ (setq-default cursor-type 'hollow)
+
+ ;; Цвет курсора
+ ;;(set-cursor-color "#ff0000")
+
+ ;; Отключить мигание курсора
+ (blink-cursor-mode -1)
+
+ ;; Отключить курсор в неактивных окнах
+ (setq cursor-in-non-selected-windows nil)
+ #+END_SRC
+
+** Сохранение состаяния при выходе
+
+ #+BEGIN_SRC emacs-lisp
  ;; Сохранить историю минибуферов
  (savehist-mode 1)
  ;; Сохранить позицию курсора
  (save-place-mode 1)
  ;; Сохранить последнюю сессию
  (desktop-save-mode 1)
+ #+END_SRC
 
- ;; Отключаем подсветку текущей строки
- (global-hl-line-mode -1)
- ;; Переключение между буферами META и стрелки
- (windmove-default-keybindings 'meta)
+** Прокрутка
 
+ #+BEGIN_SRC emacs-lisp
  ;; Прокручивать по одной строке
  (setq scroll-step 1)
+
  ;; Смешать буфер весли курсор в 10ти строках от края
  (setq scroll-margin 10)
+
  ;; Прокрутка без рывка
  (setq scroll-conservatively 10000)
+ #+END_SRC
+
+** Строка сотсояния
+
+ #+BEGIN_SRC 
+ ;; Отоброжать номер символа в строке
+ (column-number-mode)
+
+ ;; Отображать размер файла
+ (size-indication-mode)
+
+ ;; Отобажать время
+ (display-time-mode)
+
+ ;; Формат времени
+ (setq-default display-time-24hr-format t)
+ #+END_SRC
+
+** Текст
+
+ #+BEGIN_SRC emacs-lisp
+ ;; Добавление русской раскладки, С-| для переключения
+ (setq default-input-method 'russian-computer)
 
  ;; Отключаем автозаполнение строки по ширине
  (auto-fill-mode -1)
 
  ;; Переносить по словам
- (setq word-wrap t)
+ ;;(setq word-wrap t)
 
  ;; Не отображать символ переноса
  ;;(global-visual-line-mode t)
+
+;; Отключаем подсветку текущей строки
+ (global-hl-line-mode -1)
 
  ;; Пкозывать специальный символ если строка вышла за пределы окна
  (set-default 'truncate-lines t)
 
  ;; Удалять выделенный текст при вводе
  (delete-selection-mode)
+
  ;; Подсвечивать парные скобки
  (show-paren-mode)
+
  ;; Подсвечивать содержимое
  ;;(setq show-paren-style 'expression)
 
- ;; Отоброжать номер символа в строке
- (column-number-mode)
- ;; Отображать размер файла
- (size-indication-mode)
- ;; Отобажать время
- (display-time-mode)
- ;; Формат времени
- (setq-default display-time-24hr-format t)
-
- ;; Отключить курсор в неактивных окнах
- (setq cursor-in-non-selected-windows nil)
  ;; Табуляция из четырех символов
  (setq default-tab-widthq 4)
-
- ;; Тип курсора
- (setq-default cursor-type 'hollow)
- ;; Цвет курсора
- ;;(set-cursor-color "#ff0000")
  #+END_SRC
 
 ** Резервное копирование
 
  #+BEGIN_SRC emacs-lisp
- ;;
  ;; Резервное копирование
- ;;
 
  (let ((backup-dir "~/.emacs.d/backups")
        (auto-saves-dir "~/.emacs.d/auto-saves/"))
@@ -173,22 +216,21 @@
        )
  #+END_SRC
 
-** Пути
+** Разное
 
  #+BEGIN_SRC emacs-lisp
- ;; Пути
- (use-package exec-path-from-shell
-   :config (exec-path-from-shell-initialize))
- (add-to-list 'exec-path "/usr/local/bin")
- (add-to-list 'exec-path "/Library/TeX/texbin")
+ ;; Лучшая отрисовка буфера
+ (setq redisplay-dont-pause t)
+
+ ;; Отключаем звуковой сигнал
+ (setq ring-bell-function 'ignore)
+
+ ;; Включить текстовый режим при старте
+ (setq initial-major-mode 'text-mode)
+ 
+ ;; Переключение между буферами META и стрелки
+ (windmove-default-keybindings 'meta)
  #+END_SRC
-
-** Шрифт Hack
- Hack - шрифт моноширинный c однозначным начертанием символов. Необходимо скачать и установить в систему.
-
- Ссылка на проект:
-
- https://github.com/source-foundry/Hack
 
 * Пакеты
 ** srcery
@@ -649,4 +691,3 @@
    :init
    (elpy-enable))
  #+END_SRC
-
