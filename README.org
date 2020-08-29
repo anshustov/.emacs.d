@@ -1,13 +1,13 @@
 
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
-#+SETUPFILE: "~/Drive/dev/doc/template/article.org"
+#+SETUPFILE: https://github.com/anshustov/template/raw/master/article.org
 
 #+TITLE:     Emacs
 #+AUTHOR:    Алексей Шустов
 #+EMAIL:     anshustov@gmail.com
 #+DATE:      2020
 
-* Конфигурация Emacs.
+* Описание
 ** TODO Потонцеальные пакеты:
 
  - [ ] flycheck
@@ -37,7 +37,6 @@
  2. all-the-icons-install-fonts - выполнить после загрузки пакетов при первом запуске в минибуфере (M-x);
 
 * Конфигурация
-
 ** Менеджмент пакетов
 
  Автоматическая установка и обновление пакетов, используемых в use-package.
