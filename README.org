@@ -37,6 +37,35 @@
  2. all-the-icons-install-fonts - выполнить после загрузки пакетов при первом запуске в минибуфере (M-x);
 
 * Конфигурация
+
+** Менеджмент пакетов
+
+ Автоматическая установка и обновление пакетов, используемых в use-package.
+
+ #+BEGIN_SRC emacs-lisp
+ (require 'package)
+
+ (setq load-prefer-newer t)
+ (setq warning-minimum-level :emergency)
+
+ (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
+ (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+ ;;(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+ (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+
+ (setq package-enable-at-startup nil)
+ (package-initialize nil)
+
+ ;; Установка use-package по необходимости
+ (unless (package-installed-p 'use-package)
+   (package-refresh-contents)
+   (package-install 'use-package))
+
+ ;; Автоустановка и автообновление пакетов
+ (require 'use-package)
+ (setq use-package-always-ensure t)
+ #+END_SRC
+ 
 ** Цвета
 
  #+BEGIN_SRC emacs-lisp
