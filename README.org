@@ -64,6 +64,35 @@
  (setq use-package-always-ensure t)
  #+END_SRC
  
+** Тема
+
+Контрастная тема с черным фоном.
+
+Ссылка на проект:
+
+https://github.com/hlissner/emacs-doom-themes
+
+#+BEGIN_SRC emacs-lisp
+;; Тема
+(use-package srcery-theme
+    :ensure t
+    :demand
+    :config
+    (load-theme 'srcery t))
+
+;;(use-package doom-themes
+;;  :if (window-system)
+;;  :init
+;;  (progn
+;;    (load-theme 'doom-peacock' t)
+;;    ;;(load-theme 'doom-solarized-light' t)
+;;    ;; Убрать границу вокруг строки состояния активного окна
+;;    (set-face-attribute `mode-line nil :box nil)
+;;    ;; Убрать границу вокруг строки состояния неактивного окна
+;;    (set-face-attribute `mode-line-inactive nil :box nil)
+;;    ))
+#+END_SRC
+
 ** Цвета
 
  #+BEGIN_SRC emacs-lisp
@@ -265,36 +294,6 @@
  (windmove-default-keybindings 'meta)
  #+END_SRC
 
-* Пакеты
-** srcery
-
- Контрастная тема с черным фоном.
-
- Ссылка на проект:
-
- https://github.com/hlissner/emacs-doom-themes
-
- #+BEGIN_SRC emacs-lisp
- ;; Тема
- (use-package srcery-theme
-     :ensure t
-     :demand
-     :config
-     (load-theme 'srcery t))
-
- ;;(use-package doom-themes
- ;;  :if (window-system)
- ;;  :init
- ;;  (progn
- ;;    (load-theme 'doom-peacock' t)
- ;;    ;;(load-theme 'doom-solarized-light' t)
- ;;    ;; Убрать границу вокруг строки состояния активного окна
- ;;    (set-face-attribute `mode-line nil :box nil)
- ;;    ;; Убрать границу вокруг строки состояния неактивного окна
- ;;    (set-face-attribute `mode-line-inactive nil :box nil)
- ;;    ))
- #+END_SRC
- 
 ** doom-modeline-mode
 
  Строка состояний
@@ -766,4 +765,4 @@
    :ensure t
    :init (global-flycheck-mode))
  #+END_SRC
-
+* Пакеты
