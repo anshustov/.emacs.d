@@ -79,19 +79,8 @@
      :demand
      :config
      (load-theme 'srcery t))
-
- ;;(use-package doom-themes
- ;;  :if (window-system)
- ;;  :init
- ;;  (progn
- ;;    (load-theme 'doom-peacock' t)
- ;;    ;;(load-theme 'doom-solarized-light' t)
- ;;    ;; Убрать границу вокруг строки состояния активного окна
- ;;    (set-face-attribute `mode-line nil :box nil)
- ;;    ;; Убрать границу вокруг строки состояния неактивного окна
- ;;    (set-face-attribute `mode-line-inactive nil :box nil)
- ;;    ))
  #+END_SRC
+
 ** Цвета
 
  #+BEGIN_SRC emacs-lisp
