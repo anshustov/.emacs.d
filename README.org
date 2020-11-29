@@ -291,11 +291,49 @@
 
  https://github.com/seagle0128/doom-modeline
 
+ #+BEGIN_SRC ;;emacs-lisp
+ ;; Модлайн
+ (use-package doom-modeline
+       :ensure t
+       :hook (after-init . doom-modeline-mode))
+
+ #+END_SRC
+
  #+BEGIN_SRC emacs-lisp
  ;; Модлайн
  (use-package doom-modeline
        :ensure t
        :hook (after-init . doom-modeline-mode))
+ #+END_SRC
+
+** indent-guide
+
+ Отображает уровень вложенности строк относительно текущей табуляции строки.
+
+ Ссылка на проект:
+
+ https://github.com/zk-phi/indent-guide
+
+ #+BEGIN_SRC emacs-lisp
+ ;; https://github.com/zk-phi/indent-guide
+ (use-package indent-guide
+   :config (indent-guide-global-mode 1))
+ #+END_SRC
+
+** zoom
+
+ Автоматически увеличивает размер активного буфера.
+
+ Ссылка на проект:
+
+ https://github.com/cyrus-and/zoom
+
+ #+BEGIN_SRC emacs-lisp
+ ;; https://github.com/cyrus-and/zoom
+ (use-package zoom
+   :config
+   (setq zoom-size '(0.5 . 0.8))
+   (zoom-mode t))
  #+END_SRC
 
 ** eshell
@@ -310,36 +348,20 @@
 	     (define-key shell-mode-map (kbd "<M-down>") 'comint-next-input)))
  #+END_SRC
 
-** org-mode
+** magit
 
- Режим работы с задачами и заметками.
+ Оболочка для управления git в emacs.
 
  Ссылка на проект:
 
- https://orgmode.org
+ https://magit.vc
 
  #+BEGIN_SRC emacs-lisp
- ;; org-mode
- (use-package org
+ ;; https://magit.vc
+ (use-package magit
    :ensure t
-   :mode ("\\.org\\'" . org-mode)
-   :bind (("C-c a" . org-agenda))
-   :config
-   (progn
-     (setq org-directory "~/Drive/projects/")
-     (setq org-agenda-files
-	   (mapcar (lambda (path) (concat org-directory path))
-		   '("/todo.org")))
-
- (use-package org-bullets
-   :hook (org-mode . org-bullets-mode)
-   :config
-   (setq org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸")))
- 
- ;; Использовать xelatex
- (setq org-latex-compiler "xelatex")
- ;; Подсветка блока с кодом.
- (setq org-src-fontify-natively t)))
+   :bind
+   ("C-x g" . magit-status))
  #+END_SRC
 
 ** projectile
@@ -375,75 +397,81 @@
    :bind (("C-S-c C-S-c" . mc/edit-lines)
 	  ("C->" . mc/mark-next-like-this)
 	  ("C-<" . mc/mark-previous-like-this)
-	  ("C-c o" . mc/mark-all-like-this)))
+	  ("C-c o" . mc/mark-all-like-this)
+	  ("escape" . mc/keyboard-quit)))
  #+END_SRC
 
-** company
+** ace-jump-mode
 
- Автодополнение при написании кода.
+ Пакет для прыжков по тексту.
 
  Ссылка на проект:
 
- http://company-mode.github.io
+ https://github.com/winterTTr/ace-jump-mode
 
  #+BEGIN_SRC emacs-lisp
- ;; https://company-mode.github.io
- (use-package company
-   :ensure t
-   :diminish company-mode
-   :bind ("C-<tab>" . company-complete)
-   :config
-   (global-company-mode t))
+ (use-package ace-jump-mode
+   :diminish ace-jump-mode
+   :config (progn
+	     (autoload
+	       'ace-jump-mode
+	       "ace-jump-mode"
+	       "Emacs quick move minor mode"
+	       t)
+	     ;; you can select the key you prefer to
+	     ;;(define-key global-map (kbd "C-c SPC") 'ace-jump-mode
+	     (define-key global-map (kbd "C-c SPC") 'ace-jump-char-mode))
+   :ensure t)
  #+END_SRC
 
-** indent-guide
+** undo-tree
 
- Отображает уровень вложенности строк относительно текущей табуляции строки.
+ Дерево изменение.
 
  Ссылка на проект:
 
- https://github.com/zk-phi/indent-guide
+ https://github.com/emacsmirror/undo-tree
 
  #+BEGIN_SRC emacs-lisp
- ;; https://github.com/zk-phi/indent-guide
- (use-package indent-guide
-   :config (indent-guide-global-mode 1))
+ (use-package undo-tree
+ :ensure t
+ :init
+   (global-undo-tree-mode))
  #+END_SRC
 
-** zoom
+** all-the-icons
 
- Автоматически увеличивает размер активного буфера.
+ Иконки.
 
  Ссылка на проект:
 
- https://github.com/cyrus-and/zoom
+ https://github.com/domtronn/all-the-icons.el
 
  #+BEGIN_SRC emacs-lisp
- ;; https://github.com/cyrus-and/zoom
- (use-package zoom
-   :config
-   (setq zoom-size '(0.5 . 0.8))
-   (zoom-mode t))
+ ;; all-the-icons
+ (use-package all-the-icons) 
  #+END_SRC
 
-** ivy
+ #+BEGIN_SRC emacs-lisp
+(use-package all-the-icons-dired
+  :after all-the-icons
+  :hook (dired-mode . all-the-icons-dired-mode))
+ #+END_SRC
 
- Упрощает работу с минибуфером.
- 
+** smartparens
+
+ smartparens
+
  Ссылка на проект:
 
- https://github.com/abo-abo/swiper
+ https://github.com/Fuco1/smartparens
 
  #+BEGIN_SRC emacs-lisp
- ;; https://github.com/abo-abo/swiper
- (use-package ivy
-   :ensure t
-   :config
-   (ivy-mode 1)
-   (setq ivy-use-virtual-buffers t)
-   (setq enable-recursive-minibuffers t)
-   (global-set-key (kbd "C-c C-r") 'ivy-resume)
-   (global-set-key (kbd "<f6>") 'ivy-resume))
+ ;; https://github.com/Fuco1/smartparens
+ (use-package smartparens
+   :diminish smartparens-mode
+   :init (smartparens-global-mode 1)
+   :ensure t)
  #+END_SRC
 
 ** swiper
@@ -478,6 +506,59 @@
    (global-set-key (kbd "C-x C-f") 'counsel-find-file))
  #+END_SRC
 
+** ivy
+
+ Упрощает работу с минибуфером.
+ 
+ Ссылка на проект:
+
+ https://github.com/abo-abo/swiper
+
+ #+BEGIN_SRC emacs-lisp
+ ;; https://github.com/abo-abo/swiper
+ (use-package ivy
+   :ensure t
+   :config
+   (ivy-mode 1)
+   (setq ivy-use-virtual-buffers t)
+   (setq enable-recursive-minibuffers t)
+   (global-set-key (kbd "C-c C-r") 'ivy-resume)
+   (global-set-key (kbd "<f6>") 'ivy-resume))
+ #+END_SRC
+
+* Программирование
+** org-mode
+
+ Режим работы с задачами и заметками.
+
+ Ссылка на проект:
+
+ https://orgmode.org
+
+ #+BEGIN_SRC emacs-lisp
+ ;; org-mode
+ (use-package org
+   :ensure t
+   :mode ("\\.org\\'" . org-mode)
+   :bind (("C-c a" . org-agenda))
+   :config
+   (progn
+     (setq org-directory "~/Drive/projects/")
+     (setq org-agenda-files
+	   (mapcar (lambda (path) (concat org-directory path))
+		   '("/todo.org")))
+
+ (use-package org-bullets
+   :hook (org-mode . org-bullets-mode)
+   :config
+   (setq org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸")))
+ 
+ ;; Использовать xelatex
+ (setq org-latex-compiler "xelatex")
+ ;; Подсветка блока с кодом.
+ (setq org-src-fontify-natively t)))
+ #+END_SRC
+
 ** auctex
 
  Мульти языковой пакет для Tex подобной разметки (LaTex, XeLatex и т.д).
@@ -489,10 +570,43 @@
  #+BEGIN_SRC emacs-lisp
  ;; https://www.gnu.org/software/auctex/
  (use-package tex
-   :ensure auctex
+ :ensure auctex
    :config
    (setq pdf-latex-command "xelatex")
    )
+ #+END_SRC
+
+** htmlize
+
+ Оформляет код в HTML для отображения на странице в виде блока.
+
+ Ссылка на проект:
+
+ https://github.com/hniksic/emacs-htmlize
+
+ #+BEGIN_SRC emacs-lisp
+ ;;https://github.com/hniksic/emacs-htmlize
+ (use-package htmlize
+   :commands (htmlize-buffer
+	      htmlize-file
+	      htmlize-many-files
+	      htmlize-many-files-dired
+	      htmlize-region))
+ #+END_SRC
+
+** markdown-mode
+
+ Языковой пакет для markdown.
+
+ Ссылка на проект:
+
+ https://github.com/jrblevin/markdown-mode
+
+ #+BEGIN_SRC emacs-lisp
+ ;; markdown-mode
+ (use-package markdown-mode
+   :mode "\\.md\\'"
+   :ensure t)
  #+END_SRC
 
 ** latex-preview-pane - ОТКЛЮЧЕН!
@@ -505,69 +619,15 @@
  https://github.com/jsinglet/latex-preview-pane
 
  #+BEGIN_SRC emacs-lisp
- ;;(use-package latex-preview-pane
- ;;    :commands latex-preview-pane-mode
- ;;    :diminish latex-preview-pane-mode
- ;;    :init (add-hook 'LaTeX-mode-hook
- ;;                    '(lambda ()
- ;;                       (delete-other-windows)
- ;;                       (latex-preview-pane-mode))))
- ;;(add-hook 'LaTeX-mode-hook #'visual-line-mode)
- #+END_SRC
-
-** magit
-
- Оболочка для управления git в emacs.
-
- Ссылка на проект:
-
- https://magit.vc
-
- #+BEGIN_SRC emacs-lisp
- ;; https://magit.vc
- (use-package magit
-   :ensure t
-   :bind
-   ("C-x g" . magit-status))
- #+END_SRC
-
-** smartparens
-
- smartparens
-
- Ссылка на проект:
-
- https://github.com/Fuco1/smartparens
-
- #+BEGIN_SRC emacs-lisp
- ;; https://github.com/Fuco1/smartparens
- (use-package smartparens
-   :diminish smartparens-mode
-   :init (smartparens-global-mode 1)
-   :ensure t)
- #+END_SRC
-
-** ace-jump-mode
-
- Пакет для прыжков по тексту.
-
- Ссылка на проект:
-
- https://github.com/winterTTr/ace-jump-mode
-
- #+BEGIN_SRC emacs-lisp
- (use-package ace-jump-mode
-   :diminish ace-jump-mode
-   :config (progn
-	     (autoload
-	       'ace-jump-mode
-	       "ace-jump-mode"
-	       "Emacs quick move minor mode"
-	       t)
-	     ;; you can select the key you prefer to
-	     ;;(define-key global-map (kbd "C-c SPC") 'ace-jump-mode
-	     (define-key global-map (kbd "C-c SPC") 'ace-jump-char-mode))
-   :ensure t)
+ (use-package latex-preview-pane
+     :disabled
+     :commands latex-preview-pane-mode
+     :diminish latex-preview-pane-mode
+     :init (add-hook 'LaTeX-mode-hook
+                     '(lambda ()
+                        (delete-other-windows)
+                        (latex-preview-pane-mode))))
+ (add-hook 'LaTeX-mode-hook #'visual-line-mode)
  #+END_SRC
 
 ** emmet-mode
@@ -590,26 +650,36 @@
 	     (add-hook 'web-mode-hook 'emmet-mode)))
  #+END_SRC
 
-** web-mode
+** flycheck
 
- Мульти языковой пакет.
+ Синтаксис языков программирования.
 
  Ссылка на проект:
 
- http://web-mode.org
+ https://www.flycheck.org/
 
  #+BEGIN_SRC emacs-lisp
- ;; web-mode
- (use-package web-mode
+ (use-package flycheck
    :ensure t
-   :mode ("\\.html\\'"
-	  "\\.css\\'"
-	  "\\.php\\'")
-   :config
-   (progn
-     (setq web-mode-code-indent-offset 2)
-     (setq web-mode-enable-auto-quoting nil)))
+   :init (global-flycheck-mode))
  #+END_SRC
+** company
+
+Автодополнение при написании кода.
+
+Ссылка на проект:
+
+http://company-mode.github.io
+
+#+BEGIN_SRC emacs-lisp
+;; https://company-mode.github.io
+(use-package company
+  :ensure t
+  :diminish company-mode
+  :bind ("C-<tab>" . company-complete)
+  :config
+  (global-company-mode t))
+#+END_SRC
 
 ** yasnippet
 
@@ -632,22 +702,108 @@
    :ensure t)
  #+END_SRC
 
-** htmlize
+** lsp-mode
 
- Оформляет код в HTML для отображения на странице в виде блока.
+  Клиент для серверов поддержки синтаксисов языков.
+
+  Ссылка на проект:
+
+  https://emacs-lsp.github.io/lsp-mode/
+  
+  
+  #+BEGIN_VERSE
+  *Командная строка: ~/.zshrc
+  export GOPATH=~/Drive/dev/go:~/go
+  export GOROOT=/usr/local/opt/go/libexec
+  export PATH=$PATH:$GOPATH/bin
+  export PATH=$PATH:$GOROOT/bin
+
+  npm i -g bash-language-server
+  npm install -g vscode-html-languageserver-bin
+  npm install -g vscode-css-languageserver-bin
+  npm install -g intelephense 
+  #+END_VERSE
+
+  #+BEGIN_SRC emacs-lisp
+(setq lsp-gopls-staticcheck t)
+(setq lsp-eldoc-render-all t)
+(setq lsp-gopls-complete-unimported t)
+
+(use-package go-mode
+  :ensure t
+  :mode (("\\.go\\'" . go-mode))
+  :init)
+
+(use-package company
+  :ensure t
+  :config
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 1))
+
+(use-package flycheck)
+
+(use-package yasnippet
+  :ensure t
+  :commands yas-minor-mode
+  :hook (go-mode . yas-minor-mode))
+
+(use-package lsp-mode
+  :ensure t
+  :commands (lsp lsp-deferred)
+  :hook (go-mode . lsp-deferred))
+
+;;Set up before-save hooks to format buffer and add/delete imports.
+;;Make sure you don't have other gofmt/goimports hooks enabled.
+
+(defun lsp-go-install-save-hooks ()
+(add-hook 'before-save-hook #'lsp-format-buffer t t)
+(add-hook 'before-save-hook #'lsp-organize-imports t t))
+(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+
+;;Optional - provides fancier overlays.
+
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode
+  :init
+)
+
+(use-package company-lsp
+  :ensure t
+  :commands company-lsp)
+
+
+;;lsp-ui-doc-enable is false because I don't like the popover that shows up on the right
+;;I'll change it if I want it back
+
+
+(setq lsp-ui-doc-enable nil
+      lsp-ui-peek-enable t
+      lsp-ui-sideline-enable t
+      lsp-ui-imenu-enable t
+      lsp-ui-flycheck-enable t)
+
+  #+END_SRC
+
+** web-mode
+
+ Мульти языковой пакет.
 
  Ссылка на проект:
 
- https://github.com/hniksic/emacs-htmlize
+ http://web-mode.org
 
  #+BEGIN_SRC emacs-lisp
- ;;https://github.com/hniksic/emacs-htmlize
- (use-package htmlize
-   :commands (htmlize-buffer
-	      htmlize-file
-	      htmlize-many-files
-	      htmlize-many-files-dired
-	      htmlize-region))
+ ;; web-mode
+ (use-package web-mode
+   :ensure t
+   :mode ("\\.html\\'"
+	  "\\.css\\'"
+	  "\\.php\\'")
+   :config
+   (progn
+     (setq web-mode-code-indent-offset 2)
+     (setq web-mode-enable-auto-quoting nil)))
  #+END_SRC
 
 ** pug-mode
@@ -664,21 +820,6 @@
    :ensure t
    :mode
    ("\\.php\\'" . php-mode))
- #+END_SRC
-
-** markdown-mode
-
- Языковой пакет для markdown.
-
- Ссылка на проект:
-
- https://github.com/jrblevin/markdown-mode
-
- #+BEGIN_SRC emacs-lisp
- ;; markdown-mode
- (use-package markdown-mode
-   :mode "\\.md\\'"
-   :ensure t)
  #+END_SRC
 
 ** js2-mode
@@ -712,126 +853,4 @@
    :init
    (elpy-enable))
  #+END_SRC
-
-** all-the-icons
-
- Иконки.
-
- Ссылка на проект:
-
- https://github.com/domtronn/all-the-icons.el
-
- #+BEGIN_SRC emacs-lisp
- ;; all-the-icons
- (use-package all-the-icons) 
- #+END_SRC
-
-** undo-tree
-
- Дерево изменение.
-
- Ссылка на проект:
-
- https://github.com/emacsmirror/undo-tree
-
- #+BEGIN_SRC emacs-lisp
- (use-package undo-tree
- :ensure t
- :init
-   (global-undo-tree-mode))
- #+END_SRC
-
-** flycheck
-
- Синтаксис языков программирования.
-
- Ссылка на проект:
-
- https://www.flycheck.org/
-
- #+BEGIN_SRC emacs-lisp
- (use-package flycheck
-   :ensure t
-   :init (global-flycheck-mode))
- #+END_SRC
-** lsp-mode
-
-  Клиент для серверов поддержки синтаксисов языков.
-
-  Ссылка на проект:
-
-  https://emacs-lsp.github.io/lsp-mode/
-  
-  
-  #+BEGIN_VERSE
-  *Командная строка: ~/.zshrc
-  export GOPATH=~/Drive/dev/go:~/go
-  export GOROOT=/usr/local/opt/go/libexec
-  export PATH=$PATH:$GOPATH/bin
-  export PATH=$PATH:$GOROOT/bin
-
-  #+END_VERSE
-
-  #+BEGIN_SRC emacs-lisp
-(setq lsp-gopls-staticcheck t)
-(setq lsp-eldoc-render-all t)
-(setq lsp-gopls-complete-unimported t)
-
-(use-package go-mode
-:ensure t
-  :mode (("\\.go\\'" . go-mode))
-  :init)
-(use-package lsp-mode
-  :ensure t
-  :commands (lsp lsp-deferred)
-  :hook (go-mode . lsp-deferred))
-
-;;Set up before-save hooks to format buffer and add/delete imports.
-;;Make sure you don't have other gofmt/goimports hooks enabled.
-
-(defun lsp-go-install-save-hooks ()
-(add-hook 'before-save-hook #'lsp-format-buffer t t)
-(add-hook 'before-save-hook #'lsp-organize-imports t t))
-(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
-
-;;Optional - provides fancier overlays.
-
-(use-package lsp-ui
-  :ensure t
-  :commands lsp-ui-mode
-  :init
-)
-
-;;Company mode is a standard completion package that works well with lsp-mode.
-;;company-lsp integrates company mode completion with lsp-mode.
-;;completion-at-point also works out of the box but doesn't support snippets.
-
-(use-package company
-  :ensure t
-  :config
-  (setq company-idle-delay 0)
-  (setq company-minimum-prefix-length 1))
-
-(use-package company-lsp
-  :ensure t
-  :commands company-lsp)
-
-;;Optional - provides snippet support.
-
-(use-package yasnippet
-  :ensure t
-  :commands yas-minor-mode
-  :hook (go-mode . yas-minor-mode))
-
-;;lsp-ui-doc-enable is false because I don't like the popover that shows up on the right
-;;I'll change it if I want it back
-
-
-(setq lsp-ui-doc-enable nil
-      lsp-ui-peek-enable t
-      lsp-ui-sideline-enable t
-      lsp-ui-imenu-enable t
-      lsp-ui-flycheck-enable t)
-
-  #+END_SRC
 
