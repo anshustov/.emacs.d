@@ -299,24 +299,25 @@
  ;; Модлайн
  (use-package doom-modeline
        :ensure t
-       :init (setq auto-revert-check-vc-info t)
-       :hook (after-init . doom-modeline-mode))
-
+       :init 
+       (setq auto-revert-check-vc-info t)
+       (doom-modeline-mode 1))
  #+END_SRC
 
  #+BEGIN_SRC emacs-lisp
  ;; Модлайн
  (use-package doom-modeline
        :ensure t
-       :hook (after-init . doom-modeline-mode))
+       :init 
+       (setq auto-revert-check-vc-info t)
+       (doom-modeline-mode 1)
 
-(set-face-attribute 'mode-line nil
-                    :background "#204060"
-                    :foreground "white")
-
-(set-face-attribute 'mode-line-inactive nil
-                    :background "#203040"
-                    :foreground "white")
+       (set-face-attribute 'mode-line nil
+       :background "#204060"
+       :foreground "white")
+       (set-face-attribute 'mode-line-inactive nil
+       :background "#203040"
+       :foreground "white"))
  #+END_SRC
 
 ** indent-guide
