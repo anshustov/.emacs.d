@@ -309,6 +309,14 @@
  (use-package doom-modeline
        :ensure t
        :hook (after-init . doom-modeline-mode))
+
+(set-face-attribute 'mode-line nil
+                    :background "#204060"
+                    :foreground "white")
+
+(set-face-attribute 'mode-line-inactive nil
+                    :background "#203040"
+                    :foreground "white")
  #+END_SRC
 
 ** indent-guide
@@ -858,4 +866,3 @@ http://company-mode.github.io
    :init
    (elpy-enable))
  #+END_SRC
-
