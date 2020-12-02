@@ -467,7 +467,7 @@
  #+END_SRC
 
  #+BEGIN_SRC emacs-lisp
-(use-package all-the-icons-dired
+ (use-package all-the-icons-dired
   :after all-the-icons
   :hook (dired-mode . all-the-icons-dired-mode))
  #+END_SRC
@@ -539,6 +539,22 @@
    (global-set-key (kbd "C-c C-r") 'ivy-resume)
    (global-set-key (kbd "<f6>") 'ivy-resume))
  #+END_SRC
+
+** which-key
+
+ Отображает вариации для завершения комбинации клавиш.
+ 
+ Ссылка на проект:
+
+ [[https://github.com/justbur/emacs-which-key]]
+
+ #+BEGIN_SRC emacs-lisp
+ (use-package which-key
+   :init (which-key-mode)
+   :confign
+   (setq which-key-idle-delay 1)
+   (which-key-setup-minibuffer))
+  #+END_SRC
 
 * Программирование
 ** org-mode
@@ -677,6 +693,7 @@
    :ensure t
    :init (global-flycheck-mode))
  #+END_SRC
+
 ** company
 
 Автодополнение при написании кода.
@@ -867,3 +884,4 @@ http://company-mode.github.io
    :init
    (elpy-enable))
  #+END_SRC
+
