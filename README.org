@@ -334,6 +334,19 @@
    :config (indent-guide-global-mode 1))
  #+END_SRC
 
+** rainbow-delimiters
+
+ Окрашивает парные скобки.
+
+ Ссылка на проект:
+
+ [[https://github.com/Fanael/rainbow-delimiters]]
+
+ #+BEGIN_SRC emacs-lisp
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+ #+END_SRC
+
 ** zoom
 
  Автоматически увеличивает размер активного буфера.
@@ -488,6 +501,26 @@
    :ensure t)
  #+END_SRC
 
+** ivy
+
+ Упрощает работу с минибуфером.
+ 
+ Ссылка на проект:
+
+ https://github.com/abo-abo/swiper
+
+ #+BEGIN_SRC emacs-lisp
+ ;; https://github.com/abo-abo/swiper
+ (use-package ivy
+   :ensure t
+   :config
+   (ivy-mode 1)
+   (setq ivy-use-virtual-buffers t)
+   (setq enable-recursive-minibuffers t)
+   (global-set-key (kbd "C-c C-r") 'ivy-resume)
+   (global-set-key (kbd "<f6>") 'ivy-resume))
+ #+END_SRC
+
 ** swiper
 
  swiper
@@ -520,26 +553,6 @@
    (global-set-key (kbd "C-x C-f") 'counsel-find-file))
  #+END_SRC
 
-** ivy
-
- Упрощает работу с минибуфером.
- 
- Ссылка на проект:
-
- https://github.com/abo-abo/swiper
-
- #+BEGIN_SRC emacs-lisp
- ;; https://github.com/abo-abo/swiper
- (use-package ivy
-   :ensure t
-   :config
-   (ivy-mode 1)
-   (setq ivy-use-virtual-buffers t)
-   (setq enable-recursive-minibuffers t)
-   (global-set-key (kbd "C-c C-r") 'ivy-resume)
-   (global-set-key (kbd "<f6>") 'ivy-resume))
- #+END_SRC
-
 ** which-key
 
  Отображает вариации для завершения комбинации клавиш.
@@ -562,7 +575,6 @@
  Режим работы с задачами и заметками.
 
  Ссылка на проект:
-
  https://orgmode.org
 
  #+BEGIN_SRC emacs-lisp
@@ -577,6 +589,24 @@
      (setq org-agenda-files
 	   (mapcar (lambda (path) (concat org-directory path))
 		   '("/todo.org")))
+     
+ (setq org-todo-keywords
+    '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
+      (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(v)" "WAIT(w@/!)" "HOLD(h)" "|" "COMPLETED(c)" "CANC(k@)")))
+ 
+(setq org-tag-alist
+    '((:startgroup)
+       ; Put mutually exclusive tags here
+       (:endgroup)
+       ("@errand" . ?E)
+       ("@home" . ?H)
+       ("@work" . ?W)
+       ("agenda" . ?a)
+       ("planning" . ?p)
+       ("publish" . ?P)
+       ("batch" . ?b)
+       ("note" . ?n)
+       ("idea" . ?i)))
 
  (use-package org-bullets
    :hook (org-mode . org-bullets-mode)
@@ -884,4 +914,3 @@ http://company-mode.github.io
    :init
    (elpy-enable))
  #+END_SRC
-
