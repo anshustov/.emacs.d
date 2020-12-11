@@ -9,7 +9,6 @@
 * Описание
 ** TODO Потонцеальные пакеты:
 
- - [ ] flycheck
  - [ ] Mu4e
  - [ ] indium?
  - [ ] tern?
@@ -569,7 +568,7 @@
    (which-key-setup-minibuffer))
   #+END_SRC
 
-* Программирование
+* Настройка Emacs для программирования
 ** org-mode
 
  Режим работы с задачами и заметками.
@@ -763,6 +762,18 @@ http://company-mode.github.io
    :ensure t)
  #+END_SRC
 
+* Языки программирования
+** Настройки в операционной системе OSX
+
+ #+BEGIN_VERSE
+ *Командная строка: ~/.zshrc
+ export GOPATH=~/Drive/dev/go:~/go
+ export GOROOT=/usr/local/opt/go/libexec
+ export PATH=$PATH:$GOPATH/bin
+ export PATH=$PATH:$GOROOT/bin
+ #+END_VERSE
+** TODO Настройки в операционной системе Windows
+** TODO Настройки в операционной системе Linux
 ** lsp-mode
 
   Клиент для серверов поддержки синтаксисов языков.
@@ -770,81 +781,57 @@ http://company-mode.github.io
   Ссылка на проект:
 
   https://emacs-lsp.github.io/lsp-mode/
-  
-  
-  #+BEGIN_VERSE
-  *Командная строка: ~/.zshrc
-  export GOPATH=~/Drive/dev/go:~/go
-  export GOROOT=/usr/local/opt/go/libexec
-  export PATH=$PATH:$GOPATH/bin
-  export PATH=$PATH:$GOROOT/bin
-
-  npm i -g bash-language-server
-  npm install -g vscode-html-languageserver-bin
-  npm install -g vscode-css-languageserver-bin
-  npm install -g intelephense 
-  #+END_VERSE
 
   #+BEGIN_SRC emacs-lisp
-(setq lsp-gopls-staticcheck t)
-(setq lsp-eldoc-render-all t)
-(setq lsp-gopls-complete-unimported t)
-
-(use-package go-mode
-  :ensure t
-  :mode (("\\.go\\'" . go-mode))
-  :init)
-
-(use-package company
-  :ensure t
-  :config
-  (setq company-idle-delay 0)
-  (setq company-minimum-prefix-length 1))
-
-(use-package flycheck)
-
-(use-package yasnippet
-  :ensure t
-  :commands yas-minor-mode
-  :hook (go-mode . yas-minor-mode))
-
 (use-package lsp-mode
-  :ensure t
-  :commands (lsp lsp-deferred)
-  :hook (go-mode . lsp-deferred))
-
-;;Set up before-save hooks to format buffer and add/delete imports.
-;;Make sure you don't have other gofmt/goimports hooks enabled.
-
-(defun lsp-go-install-save-hooks ()
-(add-hook 'before-save-hook #'lsp-format-buffer t t)
-(add-hook 'before-save-hook #'lsp-organize-imports t t))
-(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
-
-;;Optional - provides fancier overlays.
-
-(use-package lsp-ui
-  :ensure t
-  :commands lsp-ui-mode
+  :commands (lsp lsp-execute-code-action)
+  :hook ((go-mode . lsp-deferred))
+  :bind ("C-c C-c" . #'lsp-execute-code-action)
   :init
-)
-
-(use-package company-lsp
-  :ensure t
-  :commands company-lsp)
-
-
-;;lsp-ui-doc-enable is false because I don't like the popover that shows up on the right
-;;I'll change it if I want it back
-
-
-(setq lsp-ui-doc-enable nil
-      lsp-ui-peek-enable t
-      lsp-ui-sideline-enable t
-      lsp-ui-imenu-enable t
-      lsp-ui-flycheck-enable t)
-
+  (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+  :custom
+  (lsp-enable-which-key-integration t)
+  (lsp-print-performance t)
+  (lsp-log-io t)
+  (lsp-diagnostics-modeline-scope :project)
+  (lsp-file-watch-threshold 5000)
+  (lsp-enable-file-watchers nil))
   #+END_SRC
+
+** lsp-ui
+
+  #+BEGIN_SRC emacs-lisp
+(use-package lsp-ui
+  :after lsp-mode
+  :custom
+  (lsp-ui-doc-delay 0.75)
+  (lsp-ui-doc-max-height 200)
+  (lsp-ui-doc-position 'bottom))
+  #+END_SRC
+
+** lsp-ivi
+
+  #+BEGIN_SRC emacs-lisp
+(use-package lsp-ivy
+  :after (ivy lsp-mode))
+  #+END_SRC
+
+** company-lsp
+
+  #+BEGIN_SRC emacs-lisp
+(use-package company-lsp
+  :custom (company-lsp-enable-snippet t)
+  :after (company lsp-mode))
+  #+END_SRC
+
+** TODO установка языковых серверов
+
+ #+BEGIN_VERSE
+ npm i -g bash-language-server
+ npm install -g vscode-html-languageserver-bin
+ npm install -g vscode-css-languageserver-bin
+ npm install -g intelephense
+ #+END_VERSE
 
 ** web-mode
 
