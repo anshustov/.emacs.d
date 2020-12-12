@@ -820,8 +820,19 @@ http://company-mode.github.io
 
   #+BEGIN_SRC emacs-lisp
 (use-package company-lsp
-  :custom (company-lsp-enable-snippet t)
-  :after (company lsp-mode))
+  :after lsp-mode
+  :hook (lsp-mode . company-mode)
+  :bind (:map company-active-map
+         ("<tab>" . company-complete-selection))
+        (:map lsp-mode-map
+         ("<tab>" . company-indent-or-complete-common))
+  :custom
+  (company-lsp-enable-snippet t)
+  (company-minimum-prefix-length 1)
+  (company-idle-delay 0.0)))
+
+ (use-package company-box
+  :hook (company-mode . company-box-mode))
   #+END_SRC
 
 ** TODO установка языковых серверов
@@ -901,3 +912,10 @@ http://company-mode.github.io
    :init
    (elpy-enable))
  #+END_SRC
+* Тест
+
+#+BEGIN_SRC emacs-lisp
+;; Убрать сообщение: package cl is deprecated
+(require 'loadhist)
+(file-dependents (feature-file 'cl))
+#+END_SRC
