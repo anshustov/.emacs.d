@@ -1,4 +1,4 @@
-#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+#+STUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
 #+SETUPFILE: https://github.com/anshustov/template/raw/master/article.org
 
 #+TITLE:     Emacs
@@ -65,7 +65,7 @@
  (require 'use-package)
  (setq use-package-always-ensure t)
  #+END_SRC
- 
+
 ** Тема
 
  Контрастная тема с черным фоном.
@@ -549,7 +549,8 @@
    :ensure t
    :config
    (global-set-key (kbd "M-x") 'counsel-M-x)
-   (global-set-key (kbd "C-x C-f") 'counsel-find-file))
+   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+   (setq counsel-find-file-ignore-regexp "\\(?:\\`\\|[/\\]\\)\\(?:[#.]\\)"))
  #+END_SRC
 
 ** which-key
@@ -913,9 +914,3 @@ http://company-mode.github.io
    (elpy-enable))
  #+END_SRC
 * Тест
-
-#+BEGIN_SRC emacs-lisp
-;; Убрать сообщение: package cl is deprecated
-(require 'loadhist)
-(file-dependents (feature-file 'cl))
-#+END_SRC
