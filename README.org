@@ -764,17 +764,19 @@ http://company-mode.github.io
  #+END_SRC
 
 * Языки программирования
-** Настройки в операционной системе OSX
+** golang
+*** Настройки в операционной системе OSX
 
- #+BEGIN_VERSE
- *Командная строка: ~/.zshrc
- export GOPATH=~/Drive/dev/go:~/go
- export GOROOT=/usr/local/opt/go/libexec
- export PATH=$PATH:$GOPATH/bin
- export PATH=$PATH:$GOROOT/bin
- #+END_VERSE
-** TODO Настройки в операционной системе Windows
-** TODO Настройки в операционной системе Linux
+  #+BEGIN_VERSE
+  *Командная строка: ~/.zshrc
+  export GOPATH=~/Drive/dev/go:~/go
+  export GOROOT=/usr/local/opt/go/libexec
+  export PATH=$PATH:$GOPATH/bin
+  export PATH=$PATH:$GOROOT/bin
+  go get golang.org/x/tools/gopls@latest
+  #+END_VERSE
+*** TODO Настройки в операционной системе Windows
+*** TODO Настройки в операционной системе Linux
 ** lsp-mode
 
   Клиент для серверов поддержки синтаксисов языков.
@@ -914,3 +916,18 @@ http://company-mode.github.io
    (elpy-enable))
  #+END_SRC
 * Тест
+** pass
+
+ #+BEGIN_VERSE
+brew install pass
+gpg --generate-key
+gpg --list-keys
+pass init anshustov@gmail.com
+ #+END_VERSE
+
+ #+BEGIN_SRC emacs-lisp
+(use-package pass
+  :ensure
+  :config
+  (setq password-store-executable "pass"))
+ #+END_SRC
