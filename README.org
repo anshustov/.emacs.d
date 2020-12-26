@@ -714,7 +714,7 @@
 
  Синтаксис языков программирования.
 
- Ссылка на проект:
+ Ссылка на проект:q
 
  https://www.flycheck.org/
 
@@ -759,24 +759,12 @@ http://company-mode.github.io
    (yas-global-mode t)
    :init
    (setq yas-alias-to-yas/prefix-p nil))
+
  (use-package yasnippet-snippets
    :ensure t)
  #+END_SRC
 
 * Языки программирования
-** golang
-*** Настройки в операционной системе OSX
-
-  #+BEGIN_VERSE
-  *Командная строка: ~/.zshrc
-  export GOPATH=~/Drive/dev/go:~/go
-  export GOROOT=/usr/local/opt/go/libexec
-  export PATH=$PATH:$GOPATH/bin
-  export PATH=$PATH:$GOROOT/bin
-  go get golang.org/x/tools/gopls@latest
-  #+END_VERSE
-*** TODO Настройки в операционной системе Windows
-*** TODO Настройки в операционной системе Linux
 ** lsp-mode
 
   Клиент для серверов поддержки синтаксисов языков.
@@ -838,6 +826,36 @@ http://company-mode.github.io
   :hook (company-mode . company-box-mode))
   #+END_SRC
 
+** golang
+*** Настройки в операционной системе OSX
+
+  #+BEGIN_VERSE
+  *Командная строка: ~/.zshrc
+export GOPATH=~/Drive/dev/go:~/go
+export GOROOT=/usr/local/opt/go/libexec
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
+echo $PATH
+go get golang.org/x/tools/gopls
+  #+END_VERSE
+*** TODO Настройки в операционной системе Windows
+*** TODO Настройки в операционной системе Linux
+*** go-mode
+ #+BEGIN_SRC emacs-lisp
+(use-package go-mode
+  :custom
+  (lsp-enable-links nil)
+  :config
+  (add-hook 'before-save-hook #'gofmt-before-save))
+
+(use-package go-snippets)
+
+(use-package gotest
+  :bind (:map go-mode-map
+              ("C-c a t" . #'go-test-current-test)))
+ #+END_SRC
+
+(provide 'gopls-config)
 ** TODO установка языковых серверов
 
  #+BEGIN_VERSE
