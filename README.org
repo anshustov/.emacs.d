@@ -1,4 +1,4 @@
-#+STUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
 #+SETUPFILE: https://github.com/anshustov/template/raw/master/article.org
 
 #+TITLE:     Emacs
@@ -65,7 +65,7 @@
  (require 'use-package)
  (setq use-package-always-ensure t)
  #+END_SRC
-
+ 
 ** Тема
 
  Контрастная тема с черным фоном.
@@ -478,6 +478,8 @@
  (use-package all-the-icons) 
  #+END_SRC
 
+** dired
+
  #+BEGIN_SRC emacs-lisp
  (use-package all-the-icons-dired
   :after all-the-icons
@@ -564,12 +566,12 @@
  #+BEGIN_SRC emacs-lisp
  (use-package which-key
    :init (which-key-mode)
-   :confign
+   :config
    (setq which-key-idle-delay 1)
    (which-key-setup-minibuffer))
-  #+END_SRC
+ #+END_SRC
 
-* Настройка Emacs для программирования
+* Среда разработки
 ** org-mode
 
  Режим работы с задачами и заметками.
@@ -714,7 +716,7 @@
 
  Синтаксис языков программирования.
 
- Ссылка на проект:q
+ Ссылка на проект:
 
  https://www.flycheck.org/
 
@@ -759,12 +761,24 @@ http://company-mode.github.io
    (yas-global-mode t)
    :init
    (setq yas-alias-to-yas/prefix-p nil))
-
  (use-package yasnippet-snippets
    :ensure t)
  #+END_SRC
 
-* Языки программирования
+* Языки
+** Настройки в операционной системе OSX
+
+ #+BEGIN_VERSE
+ *Командная строка:
+ brew install golang
+ echo 'export GOPATH=~/go:~/Drive/dev/go' >> ~/.zshrc
+ echo 'export GOROOT=/usr/local/opt/go/libexec' >> ~/.zshrc
+ echo 'export PATH=$PATH:$GOPATH/bin' >> ~/.zshrc
+ echo 'export PATH=$PATH:$GOROOT/bin' >> ~/.zshrc
+ source ~/.zshrc
+ #+END_VERSE
+** TODO Настройки в операционной системе Windows
+** TODO Настройки в операционной системе Linux
 ** lsp-mode
 
   Клиент для серверов поддержки синтаксисов языков.
@@ -790,6 +804,8 @@ http://company-mode.github.io
   #+END_SRC
 
 ** lsp-ui
+
+[[https://github.com/emacs-lsp/lsp-ui][lsp-ui]]
 
   #+BEGIN_SRC emacs-lisp
 (use-package lsp-ui
@@ -820,28 +836,35 @@ http://company-mode.github.io
   :custom
   (company-lsp-enable-snippet t)
   (company-minimum-prefix-length 1)
-  (company-idle-delay 0.0)))
+  (company-idle-delay 0.0))
 
- (use-package company-box
+(use-package company-box
   :hook (company-mode . company-box-mode))
   #+END_SRC
 
 ** golang
-*** Настройки в операционной системе OSX
 
-  #+BEGIN_VERSE
-  *Командная строка: ~/.zshrc
-export GOPATH=~/Drive/dev/go:~/go
-export GOROOT=/usr/local/opt/go/libexec
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$GOROOT/bin
-echo $PATH
-go get golang.org/x/tools/gopls
-  #+END_VERSE
-*** TODO Настройки в операционной системе Windows
-*** TODO Настройки в операционной системе Linux
-*** go-mode
+ [[https://github.com/golang/tools/blob/master/gopls/doc/user.md#installation][gopls]]
+
+ #+BEGIN_VERSE
+GO111MODULE=on go get golang.org/x/tools/gopls@latest
+ #+END_VERSE
+
  #+BEGIN_SRC emacs-lisp
+ (use-package go-mode
+   :ensure t
+   :bind (
+          ;; If you want to switch existing go-mode bindings to use lsp-mode/gopls instead
+          ;f; uncomment the following lines
+          ("C-c C-j" . lsp-find-definition)
+          ("C-c C-d" . lsp-describe-thing-at-point)
+          )
+   :hook ((go-mode . lsp-deferred)
+          (before-save . lsp-format-buffer)
+          (before-save . lsp-organize-imports)))
+ #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
 (use-package go-mode
   :custom
   (lsp-enable-links nil)
@@ -853,9 +876,9 @@ go get golang.org/x/tools/gopls
 (use-package gotest
   :bind (:map go-mode-map
               ("C-c a t" . #'go-test-current-test)))
+
  #+END_SRC
 
-(provide 'gopls-config)
 ** TODO установка языковых серверов
 
  #+BEGIN_VERSE
@@ -913,7 +936,7 @@ go get golang.org/x/tools/gopls
  #+BEGIN_SRC emacs-lisp
  ;; https://github.com/mooz/js2-mode
  (use-package js2-mode
-   :ensure    t
+   :ensure t
    :config
    (add-hook 'js-mode-hook #'js2-minor-mode))
  #+END_SRC
@@ -933,17 +956,13 @@ go get golang.org/x/tools/gopls
    :init
    (elpy-enable))
  #+END_SRC
-* Тест
-** pass
 
- #+BEGIN_VERSE
-brew install pass
-gpg --generate-key
-gpg --list-keys
-pass init anshustov@gmail.com
- #+END_VERSE
+* Тест
 
  #+BEGIN_SRC emacs-lisp
+(require 'loadhist)
+(file-dependents (feature-file 'cl))
+
 (use-package pass
   :ensure
   :config
