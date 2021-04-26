@@ -119,29 +119,30 @@ git clone https://github.com/anshustov/.emacs.d.git
 
 ** Цвета
 
-   Меняем цвет фона, рамки и шрифта.
+   МЕНЯЕМ ЦВЕТ ФОНА, РАМКИ И ШРИФТА.
 
-#+BEGIN_SRC emacs-lisp
-;; Цвет рамки
-(set-face-background 'fringe "black")
-;; Цвет фона
-(set-background-color "black")
-;; Цвет текста
-(set-foreground-color "white")
+#+BEGIN_SRC EMACS-LISP
+;; ЦВЕТ РАМКИ
+(SET-FACE-BACKGROUND 'FRINGE "BLACK")
+;; ЦВЕТ ФОНА
+(SET-BACKGROUND-COLOR "BLACK")
+;; ЦВЕТ ТЕКСТА
+(SET-FOREGROUND-COLOR "WHITE")
 #+END_SRC
 
-** Шрифт Hack
+** ШРИФТ HACK
 
    
-   Hack - шрифт моноширинный c однозначным начертанием символов. Необходимо скачать и установить в систему.
+   HACK - ШРИФТ МОНОШИРИННЫЙ C ОДНОЗНАЧНЫМ НАЧЕРТАНИЕМ СИМВОЛОВ. НЕОБХОДИМО СКАЧАТЬ И УСТАНОВИТЬ В СИСТЕМУ.
 
-   Ссылка на проект:
+   ССЫЛКА НА ПРОЕКТ:
 
-   https://github.com/source-foundry/Hack
+   HTTPS://GITHUB.COM/SOURCE-FOUNDRY/HACK
    
 #+BEGIN_SRC emacs-lisp
-;; Шрифт
-(set-frame-font "Hack 12" nil t)
+;; ШРИФТ
+;;(set-frame-font "Hack 12" nil t)(
+(set-fontset-font "fontset-default" 'cyrillic "Hack")
 #+END_SRC
 
 ** Пути
