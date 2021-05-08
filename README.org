@@ -109,39 +109,40 @@ git clone https://github.com/anshustov/.emacs.d.git
    https://github.com/srcery-colors/srcery-emacs
 
 #+BEGIN_SRC emacs-lisp
-;; Тема srcery-theme 'srcery
-(use-package srcery-theme
-    :ensure t
-    :demand
-    :config
-    (load-theme 'srcery t))
+	;; Тема nord-theme 'srcery
+	(use-package srcery-theme
+			:ensure t
+			:demand
+			:config
+			(setq srcery-black "#000000")
+			(load-theme 'srcery t))
 #+END_SRC
 
 ** Цвета
 
-   МЕНЯЕМ ЦВЕТ ФОНА, РАМКИ И ШРИФТА.
+	 Меняем цвет фона, рамки и шрифта.
 
-#+BEGIN_SRC EMACS-LISP
-;; ЦВЕТ РАМКИ
-(SET-FACE-BACKGROUND 'FRINGE "BLACK")
-;; ЦВЕТ ФОНА
-(SET-BACKGROUND-COLOR "BLACK")
-;; ЦВЕТ ТЕКСТА
-(SET-FOREGROUND-COLOR "WHITE")
+#+BEGIN_SRC emacs-lisp
+;; Цвет рамки
+;;(set-face-background 'fringe "black")
+;; Цвет фона
+;;(set-background-color "black")
+;; Цвет текста
+;;(set-foreground-color "white")
 #+END_SRC
 
-** ШРИФТ HACK
+** Шрифт hack
 
    
-   HACK - ШРИФТ МОНОШИРИННЫЙ C ОДНОЗНАЧНЫМ НАЧЕРТАНИЕМ СИМВОЛОВ. НЕОБХОДИМО СКАЧАТЬ И УСТАНОВИТЬ В СИСТЕМУ.
+   Hack - шрифт моноширинный c однозначным начертанием символов. необходимо скачать и установить в систему.
 
-   ССЫЛКА НА ПРОЕКТ:
+   ссылка на проект:
 
-   HTTPS://GITHUB.COM/SOURCE-FOUNDRY/HACK
+   https://github.com/source-foundry/hack
    
 #+BEGIN_SRC emacs-lisp
-;; ШРИФТ
-;;(set-frame-font "Hack 12" nil t)(
+;; Шрифт
+;;(set-frame-font "Hack 12" nil t)
 (set-fontset-font "fontset-default" 'cyrillic "Hack")
 #+END_SRC
 
@@ -150,7 +151,7 @@ git clone https://github.com/anshustov/.emacs.d.git
    Пакет читает глобальную переменную $PATH.
 
 #+BEGIN_SRC emacs-lisp
-;; Пакет
+;; ПакетE
 (use-package exec-path-from-shell
   :config (exec-path-from-shell-initialize))
   ;;(add-to-list 'exec-path "/usr/local/bin")
@@ -414,21 +415,21 @@ https://orgmode.org
 (use-package org
   :ensure t
   :mode ("\\.org\\'" . org-mode)
-         ("C-c c" . org-capture)
-         ("C-c a" . org-agenda)
+  :bind (("C-c c" . org-capture)
+         ("C-c a" . org-agenda))
   :config
   (progn
 ;; Путь к файлам org-mode.
-    (setq org-directory "~/Drive/projects")
+    (setq org-directory "~/Google Диск/org")
 ;; Имя файла расписания.
     (setq org-agenda-files
       (mapcar (lambda (path) (concat org-directory path))
         '("/agenda.org")))
 ;; Размеры заголовков
 (custom-set-faces
-  '(org-level-1 ((t (:inherit outline-1 :height 1.6))))
-  '(org-level-2 ((t (:inherit outline-2 :height 1.4))))
-  '(org-level-3 ((t (:inherit outline-3 :height 1.2))))
+  '(org-level-1 ((t (:inherit outline-1 :height 1.5))))
+  '(org-level-2 ((t (:inherit outline-2 :height 1.3))))
+  '(org-level-3 ((t (:inherit outline-3 :height 1.1))))
   '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
   '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
 )
@@ -496,7 +497,7 @@ https://orgmode.org
   (setq-default TeX-PDF-mode t))
 #+END_SRC
 
-** latex-preview-pane
+** -!- latex-preview-pane
 
    Панель автоматического просмотра pdf файла после сохранения org или tex файла.
    Отключен: в windows пока не удалось заставить работать автоматически.
@@ -507,7 +508,8 @@ https://orgmode.org
 
 #+BEGIN_SRC emacs-lisp
 (use-package latex-preview-pane
-  :commands latex-preview-pane-modeC
+  :disabled
+  :commands latex-preview-pane-mode
   :diminish latex-preview-pane-mode
   :init (add-hook 'LaTeX-mode-hook
                   '(lambda ()
@@ -516,10 +518,11 @@ https://orgmode.org
 (add-hook 'LaTeX-mode-hook #'visual-line-mode)
 #+END_SRC
 
-** pdf-tools
+** -!- pdf-tools
 
 #+BEGIN_SRC emacs-lisp
 (use-package pdf-tools
+  :disabled
   :mode ("\\.pdf\\'" . pdf-view-mode)
   :ensure t
   :init (add-hook 'pdf-view-mode-hook 'pdf-view-fit-page-to-window))
@@ -866,13 +869,13 @@ https://orgmode.org
 ** -!- company-lsp
 
 #+BEGIN_SRC emacs-lisp
-(use-package company-lsp
-  :disabled
-  :config (push 'company-lsp company-backends))
+;;(use-package company-lsp
+;;  :disabled
+;;  :config (push 'company-lsp company-backends))
 
-(use-package company-box
-  :disabled
-  :hook (company-mode . company-box-mode))
+;;(use-package company-box
+;;  :disabled
+;;  :hook (company-mode . company-box-mode))
 #+END_SRC
 
 ** golang
