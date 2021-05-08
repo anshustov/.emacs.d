@@ -145,7 +145,7 @@ git clone https://github.com/anshustov/.emacs.d.git
 ;; Шрифт
 ;;(set-frame-font "Hack 12" nil t)
 ;;(set-fontset-font "fontset-default" 'cyrillic "DejaVu Sans Mono")
-(set-frame-font "Arialt" nil t)
+(set-frame-font "Hack 12" nil t)
 #+END_SRC
 
 ** Пути
