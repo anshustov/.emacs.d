@@ -117,7 +117,7 @@ git clone https://github.com/anshustov/.emacs.d.git
     (load-theme 'srcery t))
 #+END_SRC
 
-** Цвета
+** Цвета                                                :@разработка:изучить:
 
    МЕНЯЕМ ЦВЕТ ФОНА, РАМКИ И ШРИФТА.
 
