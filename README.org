@@ -118,7 +118,8 @@ git clone https://github.com/anshustov/.emacs.d.git
 			(load-theme 'srcery t))
 #+END_SRC
 
-** Цвета
+** Цвета                                                :@разработка:изучить:
+
 
 	 Меняем цвет фона, рамки и шрифта.
 
@@ -141,8 +142,7 @@ git clone https://github.com/anshustov/.emacs.d.git
    https://github.com/source-foundry/hack
    
 #+BEGIN_SRC emacs-lisp
-  ;; Шрифт
-  (set-face-attribute 'default nil
+(set-face-attribute 'default nil
                     :family "Hack"
                     :height 120
                     :weight 'normal
