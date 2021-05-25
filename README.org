@@ -17,11 +17,13 @@
    Данная конфигурация Emacs создана с целью адаптировать его для WEB разработки в самом минималистичном дизайне.
    Целью создания была адаптация под маленькие экраны ноутбуков. Отключены все визуальные элементы emacs.
 
-** ЗАДАЧА: Сочетания клавиш                             :@разработка:сделать:
+	 --- −− Отключеный раздел настроек
+
+** Сочетания клавиш
 
 	 Пользовательские  сочетания клавишь，которые были забиндены для удобного использования пакетов：
 	 
-** Установка                                            :@разработка:сделать:
+** Установка
 
 + all-the-icons-install-fonts - выполнить после загрузки пакетов при первом запуске в минибуфере (M-x);
 
@@ -115,15 +117,13 @@ git clone https://github.com/anshustov/.emacs.d.git
 
 #+BEGIN_SRC emacs-lisp
 (use-package srcery-theme
-;;		:ensure t
 		:demand
 		:config
 		(setq srcery-black "#000000")
 		(load-theme 'srcery t))
 #+END_SRC
 
-** Цвета
-
+** --- Цвета
 
 	 Меняем цвет фона, рамки и шрифта. Реализовано в настройках темы.
 
@@ -148,9 +148,10 @@ git clone https://github.com/anshustov/.emacs.d.git
 #+BEGIN_SRC emacs-lisp
 (set-face-attribute 'default nil
                     :family "Hack"
-                    :height 120
+                    :height 100
                     :weight 'normal
                     :width 'normal)
+(set-language-environment "UTF-8")
 #+END_SRC
 
 ** Пути
@@ -954,7 +955,7 @@ source ~/.zshrc
   :custom (dimmer-fraction 0.3)
   :init (dimmer-mode))
  #+END_SRC
-** ЗАДАЧА: установка языковых серверов
+** установка языковых серверов
 
 #+BEGIN_VERSE
 npm i -g bash-language-server
