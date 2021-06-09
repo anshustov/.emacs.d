@@ -2,7 +2,7 @@
 #+SETUPFILE: https://raw.githubusercontent.com/anshustov/template/master/article.org
 #+STARTUP: content
 
-#+TITLE:     Emacs
+#+TITLE:     Emacs init
 #+AUTHOR:    Алексей Шустов
 #+EMAIL:     anshustov@gmail.com
 #+DATE:      2020
@@ -10,55 +10,95 @@
 
 
 * Введение
-** Описание
-
-   ВАЖНО: Работоспособность проверена только на OsX.
+#+BEGIN_QUOTE
+  _*ВАЖНО*: Работоспособность проверена только на OsX._
+#+END_QUOTE
 
    Данная конфигурация Emacs создана с целью адаптировать его для WEB разработки в самом минималистичном дизайне.
    Целью создания была адаптация под маленькие экраны ноутбуков. Отключены все визуальные элементы emacs.
-
+	 
+	 Сокращения:
+	 
 	 -x- − Отключеный раздел настроек
 
-** Установка
+* Установка
 
 + all-the-icons-install-fonts - выполнить после загрузки пакетов при первом запуске в минибуфере (M-x);
 
-*** Установка необходимого в OsX
+** Установка необходимого в OsX
 
     В терминале:
 
-+ Скачать и установить [[https://emacsformacosx.com][Emacs]]. 
-  Примечание: Версия из homebrew emacs-plus не запускается из spotlight，поэтому вместо ссылки на исполняемый файл копируем его．
+*** Homebrew
+		
+		Пакетный менеджер для OsX
+		
+#+BEGIN_SRC bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+#+END_SRC
+
+*** Git
+
+		Система управления версиями.
+		
+#+BEGIN_SRC bash
+brew install git
+#+END_SRC
+
+*** Шрифт Hack
+
+		Шрифт Hack - свободный моноширинный шрифт, с однозначным начертанием символов.
+
+#+BEGIN_SRC bash
+brew tap caskroom/fonts
+brew cask install font-hack
+#+END_SRC
+
+*** Emacs
+		
+  Два варианта установки:
+
+	+ Скачать готовый бинарник для OsX;
 
 #+BEGIN_SRC bash
 open https://emacsformacosx.com
 #+END_SRC
 
-+ Переходим в папку пользователя
+  + Установка используя homebrew;
+		
+  *Примечание:* Можно установить с другой иконкой, используя параматр в команде установки:
+
+	brew install emacs-plus --with-modern-papirus-icon
+	
 #+BEGIN_SRC bash
 cd ~/
-#+END_SRC
-
-+ Homebrew - пакетный менеджер для OsX
-#+BEGIN_SRC bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-#+END_SRC
-
-+ Установка git
-#+BEGIN_SRC bash
-brew install git
-#+END_SRC
-
-+ Установка шрифта Hack
-#+BEGIN_SRC bash
-brew tap caskroom/fonts
-brew cask install font-hack
+brew tap d12frosted/emacs-plus
+brew install emacs-plus
+cp -r /usr/local/opt/emacs-plus@27/Emacs.app /Applications/Emacs.app
 #+END_SRC
 
 + Скачивание конфигурации с github
 #+BEGIN_SRC bash
 git clone https://github.com/anshustov/.emacs.d.git
 #+END_SRC
+
+*** golang
+
+		Устанавливаем Goang и добавляем пути в переменную окружения.
+		
+		*Примечание:* ~/go:~/Drive/dev/go Два пути к папке по умолчания и пользовательской с проектами.
+		
+		*Заменить на свои.!*
+		
+#+BEGIN_VERSE
+*Командная строка:
+brew install golang
+echo 'export GOPATH=~/go:~/Drive/dev/go' >> ~/.zshrc
+echo 'export GOROOT=/usr/local/opt/go/libexec' >> ~/.zshrc
+echo 'export PATH=$PATH:$GOPATH/bin' >> ~/.zshrc
+echo 'export PATH=$PATH:$GOROOT/bin' >> ~/.zshrc
+source ~/.zshrc
+#+END_VERSE
 
 * Конфигурация
 ** Менеджмент пакетов
@@ -317,7 +357,7 @@ git clone https://github.com/anshustov/.emacs.d.git
 * Пакеты
 ** all-the-icons
 
-		Иконки.
+		Иконки. Позволяет установить шрифт и взаимодействовать с ним другим пакетам.
 
 		Ссылка на проект:
 
@@ -338,18 +378,16 @@ git clone https://github.com/anshustov/.emacs.d.git
 #+BEGIN_SRC emacs-lisp
 (use-package doom-modeline
   :init
-    (setq auto-revert-check-vc-info t
-      doom-modeline-persp-name              nil
+    (setq
       doom-modeline-buffer-encoding         nil
-      doom-modeline-icon                    t
       doom-modeline-buffer-file-name-style  'truncate-from-project)
       (doom-modeline-mode 1)
 
     (set-face-attribute 'mode-line nil
-      :background "gray12"
+      :background "gray20"
       :foreground "#FCE8C3")
     (set-face-attribute 'mode-line-inactive nil
-      :background "gray7"
+      :background "gray10"
       :foreground "#FCE8C3"))
 #+END_SRC
 
@@ -398,6 +436,10 @@ git clone https://github.com/anshustov/.emacs.d.git
 
    Настройки сочетаний клавиш eshell
 
+	 Ссылка на проект：
+
+	 [[https://www.gnu.org/software/emacs/manual/html_mono/eshell.html]]
+
 #+BEGIN_SRC emacs-lisp
 (add-hook 'shell-mode-hook
   (lambda ()
@@ -424,6 +466,7 @@ git clone https://github.com/anshustov/.emacs.d.git
 *Режим* работы с задачами и заметками.
 
 Ссылка на проект:
+
 https://orgmode.org
 
 #+BEGIN_SRC emacs-lisp
@@ -483,6 +526,7 @@ https://orgmode.org
         (:endgroup)))
 ))
 
+;; Внешний вид маркеров для заголовков.
 (use-package org-bullets
    :hook (org-mode . org-bullets-mode)
    :config
@@ -536,6 +580,10 @@ https://orgmode.org
 
 ** -x- pdf-tools
 
+Пакет для просмотра pdf файлов．
+
+[[https://github.com/politza/pdf-tools]]
+	 
 #+BEGIN_SRC emacs-lisp
 (use-package pdf-tools
   :disabled
@@ -568,6 +616,7 @@ https://orgmode.org
 #+END_SRC
 
 ** htmlize
+
    Оформляет код в HTML для отображения на странице в виде блока.
 
    Ссылка на проект:
@@ -628,8 +677,9 @@ https://orgmode.org
     (yas-global-mode t)
 	:init
     (setq yas-alias-to-yas/prefix-p nil))
- (use-package yasnippet-snippets)
- #+END_SRC
+
+(use-package yasnippet-snippets)
+#+END_SRC
  
 ** multiple-cursors
 
@@ -698,6 +748,10 @@ https://orgmode.org
 
 ** dired
 
+Настройки файлового менеджера dired.
+
+https://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html
+	 
 #+BEGIN_SRC emacs-lisp
 (use-package all-the-icons-dired
   :after all-the-icons
@@ -748,7 +802,7 @@ https://orgmode.org
 (use-package swiper
   :config
   (global-set-key "\C-s" 'swiper))
- #+END_SRC
+#+END_SRC
 
 ** counsel
 
@@ -764,7 +818,7 @@ https://orgmode.org
   (global-set-key (kbd "M-x") 'counsel-M-x)
   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
   (setq counsel-find-file-ignore-regexp "\\(?:\\`\\|[/\\]\\)\\(?:[#.]\\)"))
- #+END_SRC
+#+END_SRC
 
 ** which-key
 
@@ -780,10 +834,17 @@ https://orgmode.org
   :config
   (setq which-key-idle-delay 1)
   (which-key-setup-minibuffer))
-#+END_SRC§
+#+END_SRC
+
 * Языки
 ** lsp-mode
 
+	 Реализаци для Emacs протокола сервера языков. Поддержка языков устанавливается в систему, а данный пакет позволяет Emacs общатся с этими языковыми серверами.
+
+	 Ссылка на проект:
+
+	 https://github.com/emacs-lsp/lsp-mode
+	 
 #+BEGIN_SRC emacs-lisp
 (use-package lsp-mode
   :init
@@ -798,25 +859,37 @@ https://orgmode.org
 
 ** lsp-ui
 
+	 Пакет для вывода информации в всплывающих окнах.
+
+	 Ссылка на проект:
+
+	 https://github.com/emacs-lsp/lsp-ui
+	 
 #+BEGIN_SRC emacs-lisp
 (use-package lsp-ui 
-	:commands lsp-ui-mode)
+	:commands lsp-ui-mode
   :custom
     (lsp-ui-doc-delay 0.75)
 		(lsp-ui-doc-max-height 200)
 		(lsp-ui-doc-position 'bottom))
-
-
 #+END_SRC
 
 ** -x- helm-lsp
 
+	 Не используется helm. Helm - альтернатива ivy.
+	 
 #+BEGIN_SRC emacs-lisp
 ;; if you are helm user
 ;;(use-package helm-lsp :commands helm-lsp-workspace-symbol)
 #+END_SRC
 
 ** lsp-ivy
+
+	 Поддержка возможностей lsp в минибуфере.
+
+	 Ссылка на проект:
+
+	 https://github.com/emacs-lsp/lsp-ivy
 
 #+BEGIN_SRC emacs-lisp
 ;; if you are ivy user
@@ -825,38 +898,44 @@ https://orgmode.org
 
 ** -x- lsp-treemacs
 
+	 Не используется treemacs.
+
 #+BEGIN_SRC emacs-lisp
 ;;(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
 #+END_SRC
 
 ** -x- dap-mode
 
+	 Для отладки используя lsp сервер.
+
+	 Ссылка на проект:
+
+	 https://emacs-lsp.github.io/dap-mode/
+	 
 #+BEGIN_SRC emacs-lisp
 ;; optionally if you want to use debugger
 ;;(use-package dap-mode)
 ;; (use-package dap-LANGUAGE) to load the dap adapter for your language
 #+END_SRC
 
-** wich-key
+** -x- which-key
+
+Уже реализовано выше.
 	 
 #+BEGIN_SRC emacs-lisp
 ;; optional if you want which-key integration
-(use-package which-key
-    :config
-    (which-key-mode))
+;;(use-package which-key
+;;    :config
+;;    (which-key-mode))
 #+END_SRC
 
 ** golang
 
-#+BEGIN_VERSE
-*Командная строка:
-brew install golang
-echo 'export GOPATH=~/go:~/Drive/dev/go' >> ~/.zshrc
-echo 'export GOROOT=/usr/local/opt/go/libexec' >> ~/.zshrc
-echo 'export PATH=$PATH:$GOPATH/bin' >> ~/.zshrc
-echo 'export PATH=$PATH:$GOROOT/bin' >> ~/.zshrc
-source ~/.zshrc
-#+END_VERSE
+	 Поддержка языка GO , используя языковой сервер GOPLS.
+	 
+	 Ссылка на проект:
+
+	 https://github.com/golang/tools/tree/master/gopls
 
 #+BEGIN_SRC emacs-lisp
 (use-package go-mode
@@ -878,25 +957,44 @@ source ~/.zshrc
 
 ** company-lsp
 
- #+BEGIN_SRC emacs-lisp
- (use-package company-lsp
-   :after lsp-mode
-   :hook (lsp-mode . company-mode)
-   :bind (:map company-active-map
-           ("<tab>" . company-complete-selection))
-         (:map lsp-mode-map
-           ("<tab>" . company-indent-or-complete-common))
-   :custom
-     (company-lsp-enable-snippet t)
-		 (company-minimum-prefix-length 1)
-		 (company-idle-delay 0.0))
+	 Поддержка автодополнения для языковых серверов.
 
- (use-package company-box
-   :hook (company-mode . company-box-mode))
- #+END_SRC
+	 Ссылка на проект:
+
+	 https://github.com/tigersoldier/company-lsp
+
+#+BEGIN_SRC emacs-lisp
+(use-package company-lsp
+	:after lsp-mode
+	:hook (lsp-mode . company-mode)
+	:bind (:map company-active-map
+					("<tab>" . company-complete-selection))
+				(:map lsp-mode-map
+					("<tab>" . company-indent-or-complete-common))
+	:custom
+		(company-lsp-enable-snippet t)
+		(company-minimum-prefix-length 1)
+		(company-idle-delay 0.0))
+#+END_SRC
+
+** company-box
+
+	 Поддержка иконок при автодополнении.
+
+	 Ссылка на проект:
+
+	 https://github.com/sebastiencs/company-box
+
+#+BEGIN_SRC emacs-lisp
+(use-package company-box
+  :hook (company-mode . company-box-mode))
+#+END_SRC
 
 * Тест
 
+	Раздел для тестирования!!!
+
+	
 #+BEGIN_SRC emacs-lisp
 (use-package pass
   :config
