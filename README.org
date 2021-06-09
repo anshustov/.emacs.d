@@ -859,7 +859,8 @@ source ~/.zshrc
 #+END_VERSE
 
 #+BEGIN_SRC emacs-lisp
-(use-package go-mode)
+(use-package go-mode
+    :hook (go-mode . lsp))
 #+END_SRC
 
 ** markdown-mode
