@@ -101,6 +101,20 @@ source ~/.zshrc
 #+END_VERSE
 
 * Конфигурация
+** Настройки
+
+Параметры конфигурации, зависящие от операционной системы.
+
+#+BEGIN_SRC emacs-lisp
+(when (eq system-type 'windows-nt)
+  (setq _fs 100)
+)
+
+(when (eq system-type 'darwin)
+  (setq _fs 140)
+)
+#+END_SRC
+
 ** Менеджмент пакетов
 
    Автоматическая установка и обновление пакетов, используемых в use-package.
@@ -186,7 +200,7 @@ source ~/.zshrc
 #+BEGIN_SRC emacs-lisp
 (set-face-attribute 'default nil
                     :family "Hack"
-                    :height 140
+                    :height _fs
                     :weight 'normal
                     :width 'normal)
 (set-language-environment "UTF-8")
@@ -530,7 +544,7 @@ https://orgmode.org
 (use-package org-bullets
    :hook (org-mode . org-bullets-mode)
    :config
-   (setq org-bullets-bullet-list '("◉" "◎" "○" "✱" "▶")))
+   (setq org-bullets-bullet-list '("◉" "◉" "○" "✱" "▶")))
 
 ;; Использовать xelatex
 (setq org-latex-compiler "xelatex")
