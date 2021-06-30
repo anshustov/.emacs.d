@@ -490,6 +490,16 @@ https://orgmode.org
          ("C-c a" . org-agenda))
   :config
   (progn
+
+;; Подсветка блока с кодом.
+(setq org-src-fontify-natively t)
+;; Не создавать автоматический отступ в коде
+(setq org-edit-src-content-indentation 0)
+;; Использовать tab как стандартную табуляцию
+(setq org-src-tab-acts-natively t)
+;; Нулевой отступ
+(setq org-src-preserve-indentation t)
+
 ;; Путь к файлам org-mode.
     (setq org-directory "~/Google Диск/org")
 ;; Имя файла расписания.
@@ -548,8 +558,6 @@ https://orgmode.org
 
 ;; Использовать xelatex
 (setq org-latex-compiler "xelatex")
-;; Подсветка блока с кодом.
-;;(setq org-src-fontify-natively t)
 #+END_SRC
 
 ** auctex
