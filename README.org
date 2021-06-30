@@ -25,7 +25,7 @@
 
 + all-the-icons-install-fonts - выполнить после загрузки пакетов при первом запуске в минибуфере (M-x);
 
-** Установка необходимого в OsX
+** OsX
 
     В терминале:
 
@@ -45,13 +45,13 @@
 brew install git
 #+END_SRC
 
-*** Шрифт Hack
+*** Шрифт
 
 		Шрифт Hack - свободный моноширинный шрифт, с однозначным начертанием символов.
 
 #+BEGIN_SRC bash
 brew tap caskroom/fonts
-brew cask install font-hack
+brew cask install font-dejavu
 #+END_SRC
 
 *** Emacs
@@ -100,14 +100,31 @@ echo 'export PATH=$PATH:$GOROOT/bin' >> ~/.zshrc
 source ~/.zshrc
 #+END_VERSE
 
+** Windows
+*** Msys2
+
+Пакетный менеджер для Windows
+
+https://www.msys2.org/
+
+*** Git
+
+pacman -S git
+
+*** Шрифт
+
+pacman -S mingw-w64-x86_64-ttf-dejavu
+
 * Конфигурация
 ** Настройки
 
 Параметры конфигурации, зависящие от операционной системы.
 
+_fs - размер шрифта．
+
 #+BEGIN_SRC emacs-lisp
 (when (eq system-type 'windows-nt)
-  (setq _fs 100)
+  (setq _fs 120)
 )
 
 (when (eq system-type 'darwin)
@@ -199,7 +216,7 @@ source ~/.zshrc
    
 #+BEGIN_SRC emacs-lisp
 (set-face-attribute 'default nil
-                    :family "Hack"
+                    :family "DejaVu Sans Mono"
                     :height _fs
                     :weight 'normal
                     :width 'normal)
@@ -964,6 +981,7 @@ https://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html
     :hook (go-mode . lsp))
 #+END_SRC
 
+** 
 ** markdown-mode
 
 		Языковой пакет для markdown.
