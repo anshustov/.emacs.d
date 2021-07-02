@@ -47,11 +47,11 @@ brew install git
 
 *** Шрифт
 
-		Шрифт Hack - свободный моноширинный шрифт, с однозначным начертанием символов.
+		Шрифт - свободный моноширинный шрифт, с однозначным начертанием символов.
 
 #+BEGIN_SRC bash
 brew tap caskroom/fonts
-brew cask install font-dejavu
+brew install font-dejavu
 #+END_SRC
 
 *** Emacs
@@ -981,7 +981,36 @@ https://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html
     :hook (go-mode . lsp))
 #+END_SRC
 
-** 
+** dart
+	 
+#+BEGIN_SRC emacs-lisp
+(use-package lsp-dart
+    :hook (dart-mode . lsp)
+		:init)
+#+END_SRC
+
+	 
+** fluter
+
+#+BEGIN_SRC emacs-lisp
+(use-package dart-mode
+  ;; Optional
+  :hook (dart-mode . flutter-test-mode))
+
+(use-package flutter
+  :after dart-mode
+  :bind (:map dart-mode-map
+              ("C-M-x" . #'flutter-run-or-hot-reload))
+;;  :custom
+;;  (flutter-sdk-path "/Applications/flutter/"))
+
+;; Optional
+(use-package flutter-l10n-flycheck
+  :after flutter
+  :config
+  (flutter-l10n-flycheck-setup))
+#+END_SRC
+	 
 ** markdown-mode
 
 		Языковой пакет для markdown.
